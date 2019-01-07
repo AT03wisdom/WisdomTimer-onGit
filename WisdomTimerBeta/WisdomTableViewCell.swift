@@ -22,8 +22,6 @@ class WisdomTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
         
         // デリゲートを使えるようにするおきまりのあれ
         
-        timePicker = UIPickerView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 300))
-        
         timePicker.dataSource = self
         timePicker.delegate = self
         
@@ -75,7 +73,7 @@ class WisdomTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
     }
     
     func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
-        return timePicker.bounds.width * 1/4
+        return pickerView.bounds.width * 1/4
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {

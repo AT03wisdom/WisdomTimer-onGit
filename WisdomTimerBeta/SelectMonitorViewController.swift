@@ -12,7 +12,7 @@ class SelectMonitorViewController: UITableViewController {
     
     var wholeSeconds: Float!
     
-    var pickerView: UIPickerView! = UIPickerView()
+    var pickerView: UIPickerView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,24 +59,27 @@ class SelectMonitorViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // テーブルビューのセルの設定
-        var cell: WisdomTableViewCell!
         
         if indexPath.section == 0 {
+            
+            var cell: WisdomTableViewCell!
             cell = tableView.dequeueReusableCell(withIdentifier: "WisdomTableViewCell", for: indexPath) as? WisdomTableViewCell
             cell.timePicker = pickerView
             
-        } else if indexPath.section == 1 {
-            cell = tableView.dequeueReusableCell(withIdentifier: "normalCell", for: indexPath) as? WisdomTableViewCell
+            return cell
+            
+        } else {
+            
+            var cell: UITableViewCell!
+            cell = tableView.dequeueReusableCell(withIdentifier: "normalCell", for: indexPath)
             
             cell.textLabel?.text = normalCells[indexPath.row]
             if indexPath.row == 1 {
                 cell.accessoryType = .disclosureIndicator
             }
-        } else {
-            cell = WisdomTableViewCell()
+            
+            return cell
         }
-        
-        return cell
     }
 
 }
