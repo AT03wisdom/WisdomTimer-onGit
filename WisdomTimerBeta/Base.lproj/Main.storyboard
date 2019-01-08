@@ -168,14 +168,14 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sma-f4-qfh">
-                                            <rect key="frame" x="0.0" y="6" width="414" height="231.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="244"/>
                                         </pickerView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="Sma-f4-qfh" secondAttribute="trailing" id="2Qj-Ml-QFT"/>
+                                        <constraint firstAttribute="bottom" secondItem="Sma-f4-qfh" secondAttribute="bottom" id="CrM-xA-w1m"/>
                                         <constraint firstItem="Sma-f4-qfh" firstAttribute="leading" secondItem="v0g-Bj-oIr" secondAttribute="leading" id="Osb-Sk-pfF"/>
-                                        <constraint firstAttribute="bottom" secondItem="Sma-f4-qfh" secondAttribute="bottom" constant="6" id="gRy-YC-Eoo"/>
-                                        <constraint firstItem="Sma-f4-qfh" firstAttribute="top" secondItem="v0g-Bj-oIr" secondAttribute="top" constant="6" id="znl-HF-3D3"/>
+                                        <constraint firstItem="Sma-f4-qfh" firstAttribute="top" secondItem="v0g-Bj-oIr" secondAttribute="top" id="PZm-RN-7aP"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -202,7 +202,11 @@
                                 <action selector="cancelButtonDidTouchWithSender:" destination="a2O-zr-cLU" id="OQA-4u-M7Z"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="6tH-rA-pq8"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="6tH-rA-pq8">
+                            <connections>
+                                <action selector="doneButtonDidTouchWithSender:" destination="a2O-zr-cLU" id="VYp-jj-r7J"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="twG-DR-Tok" userLabel="First Responder" sceneMemberID="firstResponder"/>

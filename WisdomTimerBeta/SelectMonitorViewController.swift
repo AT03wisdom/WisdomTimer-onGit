@@ -10,9 +10,14 @@ import UIKit
 
 class SelectMonitorViewController: UITableViewController {
     
-    var wholeSeconds: Float!
-    
     var pickerView: UIPickerView!
+    
+    var pickerCell: WisdomTableViewCell!
+    
+    var timerTableDelegate: TimerTableDelegate?
+    
+    // 時・分・秒のデータ
+    let timeDatas = [[Int](0...23), [Int](0...59), [Int](0...59)]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +33,21 @@ class SelectMonitorViewController: UITableViewController {
     
     @IBAction func doneButtonDidTouch(sender: AnyObject) {
         // Doneが押されたら
+        // 新しいタイマーを作る
+        let newTimer = pickerCell.makeTimer()
+        print(newTimer.initialWholeSecond)
+        
+        if newTimer.initialWholeSecond == 0 {
+            // 秒数０、失敗、アラートビュー
+        } else {
+            // 秒数１以上、成功、メニュービューに追加
+            let menuView = MenuViewController()
+            menuView.timerArray.append(newTimer)
+            
+            self.dismiss(animated: true, completion: {
+                self.timerTableDelegate?.updateTableView()
+            })
+        }
     }
     
 //    These are the tableView (timePicker) Settings
@@ -62,23 +82,22 @@ class SelectMonitorViewController: UITableViewController {
         
         if indexPath.section == 0 {
             
-            var cell: WisdomTableViewCell!
-            cell = tableView.dequeueReusableCell(withIdentifier: "WisdomTableViewCell", for: indexPath) as? WisdomTableViewCell
-            cell.timePicker = pickerView
+            pickerCell = tableView.dequeueReusableCell(withIdentifier: "WisdomTableViewCell", for: indexPath) as? WisdomTableViewCell
+            pickerCell.timePicker = pickerView
             
-            return cell
+            return pickerCell
             
         } else {
             
-            var cell: UITableViewCell!
-            cell = tableView.dequeueReusableCell(withIdentifier: "normalCell", for: indexPath)
+            var normalCell: UITableViewCell!
+            normalCell = tableView.dequeueReusableCell(withIdentifier: "normalCell", for: indexPath)
             
-            cell.textLabel?.text = normalCells[indexPath.row]
+            normalCell.textLabel?.text = normalCells[indexPath.row]
             if indexPath.row == 1 {
-                cell.accessoryType = .disclosureIndicator
+                normalCell.accessoryType = .disclosureIndicator
             }
             
-            return cell
+            return normalCell
         }
     }
 

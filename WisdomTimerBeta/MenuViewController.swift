@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate {
+class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, TimerTableDelegate {
     
     @IBOutlet var timerTable: UITableView!
     
@@ -19,6 +19,14 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // Do any additional setup after loading the view, typically from a nib.
         timerTable.dataSource = self
         timerTable.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        timerTable.reloadData()
+    }
+    
+    func updateTableView() {
+        self.timerTable.reloadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
