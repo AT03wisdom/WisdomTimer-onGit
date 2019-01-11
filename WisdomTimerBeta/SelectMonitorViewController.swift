@@ -39,14 +39,30 @@ class SelectMonitorViewController: UITableViewController {
         
         if newTimer.initialWholeSecond == 0 {
             // 秒数０、失敗、アラートビュー
+            let failAlert = UIAlertController(title: "Failed To Make Timer", message: "It is not possible to create a timer due to the specification of the number of seconds or for other reasons.", preferredStyle: UIAlertController.Style.alert)
+            let sureButton = UIAlertAction(
+                title: "OK",
+                style: UIAlertAction.Style.cancel,
+                handler: { action in
+                    print("Timer has been made.")
+            })
+            failAlert.addAction(sureButton)
+            
+            present(failAlert, animated: true, completion: nil)
         } else {
             // 秒数１以上、成功、メニュービューに追加
-            let menuView = MenuViewController()
-            menuView.timerArray.append(newTimer)
             
-            self.dismiss(animated: true, completion: {
-                self.timerTableDelegate?.updateTableView()
-            })
+            if let navVC = self.navigationController!.presentingViewController as? UINavigationController {
+                let menuView = navVC.viewControllers[0] as! MenuViewController
+                
+                menuView.timerArray.append(newTimer)
+                
+                self.timerTableDelegate = menuView
+                
+                self.dismiss(animated: true, completion: {
+                    self.timerTableDelegate?.updateTableView()
+                })
+            }
         }
     }
     

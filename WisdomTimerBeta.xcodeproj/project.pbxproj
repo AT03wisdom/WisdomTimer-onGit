@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A3014BB621E8C6C600E668C6 /* receipt01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A3014BB521E8C6C600E668C6 /* receipt01.mp3 */; };
 		A341E4AC21B7F51300859F8F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A341E4AB21B7F51300859F8F /* AppDelegate.swift */; };
 		A341E4AE21B7F51300859F8F /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A341E4AD21B7F51300859F8F /* MenuViewController.swift */; };
 		A341E4B121B7F51300859F8F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A341E4AF21B7F51300859F8F /* Main.storyboard */; };
@@ -16,7 +17,6 @@
 		A341E4CC21B7F51600859F8F /* WisdomTimerBetaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A341E4CB21B7F51600859F8F /* WisdomTimerBetaUITests.swift */; };
 		A341E4DC21B7FB3D00859F8F /* TimerFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A341E4DB21B7FB3D00859F8F /* TimerFile.swift */; };
 		A341E4DE21BAB70B00859F8F /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A341E4DD21BAB70B00859F8F /* TimerViewController.swift */; };
-		A363D7D521D3B9C700BAEC71 /* AlarmMusic in Resources */ = {isa = PBXBuildFile; fileRef = A363D7D421D3B9C700BAEC71 /* AlarmMusic */; };
 		A363D7D721D465F400BAEC71 /* TimerViewProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A363D7D621D465F400BAEC71 /* TimerViewProtocols.swift */; };
 		A363D7D921D60BE600BAEC71 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A363D7D821D60BE600BAEC71 /* Extensions.swift */; };
 		A363D7DF21DEC56E00BAEC71 /* CustomAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = A363D7DE21DEC56E00BAEC71 /* CustomAnimatedTransitioning.swift */; };
@@ -43,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A3014BB521E8C6C600E668C6 /* receipt01.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = receipt01.mp3; sourceTree = "<group>"; };
 		A341E4A821B7F51300859F8F /* WisdomTimerBeta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WisdomTimerBeta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A341E4AB21B7F51300859F8F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A341E4AD21B7F51300859F8F /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
@@ -58,7 +59,6 @@
 		A341E4CD21B7F51600859F8F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A341E4DB21B7FB3D00859F8F /* TimerFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerFile.swift; sourceTree = "<group>"; };
 		A341E4DD21BAB70B00859F8F /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
-		A363D7D421D3B9C700BAEC71 /* AlarmMusic */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AlarmMusic; sourceTree = "<group>"; };
 		A363D7D621D465F400BAEC71 /* TimerViewProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewProtocols.swift; sourceTree = "<group>"; };
 		A363D7D821D60BE600BAEC71 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		A363D7DE21DEC56E00BAEC71 /* CustomAnimatedTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAnimatedTransitioning.swift; sourceTree = "<group>"; };
@@ -92,6 +92,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A3014BB421E8C6C600E668C6 /* AlarmMusic */ = {
+			isa = PBXGroup;
+			children = (
+				A3014BB521E8C6C600E668C6 /* receipt01.mp3 */,
+			);
+			path = AlarmMusic;
+			sourceTree = "<group>";
+		};
 		A341E49F21B7F51300859F8F = {
 			isa = PBXGroup;
 			children = (
@@ -115,7 +123,7 @@
 		A341E4AA21B7F51300859F8F /* WisdomTimerBeta */ = {
 			isa = PBXGroup;
 			children = (
-				A363D7D421D3B9C700BAEC71 /* AlarmMusic */,
+				A3014BB421E8C6C600E668C6 /* AlarmMusic */,
 				A341E4AB21B7F51300859F8F /* AppDelegate.swift */,
 				A341E4AD21B7F51300859F8F /* MenuViewController.swift */,
 				A341E4DD21BAB70B00859F8F /* TimerViewController.swift */,
@@ -256,7 +264,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A363D7D521D3B9C700BAEC71 /* AlarmMusic in Resources */,
+				A3014BB621E8C6C600E668C6 /* receipt01.mp3 in Resources */,
 				A341E4B621B7F51600859F8F /* LaunchScreen.storyboard in Resources */,
 				A341E4B321B7F51600859F8F /* Assets.xcassets in Resources */,
 				A341E4B121B7F51300859F8F /* Main.storyboard in Resources */,
