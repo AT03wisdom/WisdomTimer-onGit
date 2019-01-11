@@ -36,7 +36,7 @@ class TimerFile {
     // デシ秒を使えるか
     var isDeciSecond: Bool!
     
-    // タイマーがカウントダウンしてるか
+    // タイマーがカウントダウンしてるか(未使用)
     var isTimerStopping: Bool!
     
     // オリジナル・フリー音源の配列とオーディオプレーヤー
@@ -183,6 +183,10 @@ class TimerFile {
             return nil
         }
         
+    }
+    
+    func startAction() {
+        // Startボタンが押された時
     }
     
     func doneAction() {

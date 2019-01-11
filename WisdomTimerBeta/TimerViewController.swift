@@ -36,14 +36,21 @@ class TimerViewController: UIViewController, TimerViewProtocols {
 //        print(doneButton.frame.origin.x)
 //        print((doneButton.frame.width, doneButton.frame.height))
         
-        restartButton.setTitle("Restart", for: .normal)
-        restartButton.setTitleColor(UIColor(red: 1.0, green: 0.2, blue: 1.0, alpha: 1.0), for: .normal)
+        if timerFile.timer.isValid {
+            // タイマーが動いている時
+            restartButton.setTitle("Pause", for: .normal)
+            restartButton.setTitleColorToLightGreen()
+        } else {
+            // タイマーが止まっている時
+            restartButton.setTitle("Start", for: .normal)
+            restartButton.setTitleColorToMagenta()
+        }
+        
+        restartButton.layer.cornerRadius = 10
         
         doneButton.layer.cornerRadius = 10
         doneButton.setTitleColor(UIColor(red: 0.1, green: 0.2, blue: 0.9, alpha: 1.0), for: .normal)
         
-        restartButton.layer.cornerRadius = 10
-        restartButton.setTitleColor(UIColor(red: 0.0, green: 0.9, blue: 0.4, alpha: 1.0), for: .normal)
     }
     
     @IBAction func onDoneButton() {
@@ -62,8 +69,6 @@ class TimerViewController: UIViewController, TimerViewProtocols {
             reflectButtonStyle(buttonName: "Restart")
         }
         
-        print("onRestarted \(String(describing: restartButton.titleLabel?.text))")
-        
     }
     
     // Delegate ここから
@@ -72,8 +77,6 @@ class TimerViewController: UIViewController, TimerViewProtocols {
     }
     
     func reflectButtonStyle(buttonName: String) {
-        
-        print("reflectButtonStyle \(buttonName)")
         
         switch buttonName {
         case "Restart":
@@ -88,7 +91,7 @@ class TimerViewController: UIViewController, TimerViewProtocols {
             
         case "Done":
             // Done ボタンが押された時
-            restartButton.setTitle("Restart", for: .normal)
+            restartButton.setTitle("Start", for: .normal)
             restartButton.setTitleColorToMagenta()
             
         default:
