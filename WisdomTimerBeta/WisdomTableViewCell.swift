@@ -14,7 +14,7 @@ class WisdomTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
     let timeDatas = [[Int](0...23), [Int](0...59), [Int](0...59)]
     
     var limitedSecond: Int = 0
-    var limitedMunite: Int = 0
+    var limitedMinute: Int = 0
     var limitedHour: Int = 0
     
     // UIPickerViewなどのOutletは、UITableViewCellに直接挿入できないので新しいクラスで定義
@@ -59,8 +59,8 @@ class WisdomTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
     }
     
     func makeTimer() -> TimerFile {
-        let timer: TimerFile = TimerFile(second: limitedHour,
-                                         minute: limitedMunite,
+        let timer: TimerFile = TimerFile(second: limitedSecond,
+                                         minute: limitedMinute,
                                          hour: limitedHour)
         return timer
     }
@@ -97,7 +97,7 @@ class WisdomTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
         case 0:
             limitedHour = timeDatas[0][row]
         case 1:
-            limitedMunite = timeDatas[1][row]
+            limitedMinute = timeDatas[1][row]
         case 2:
             limitedSecond = timeDatas[2][row]
         default:

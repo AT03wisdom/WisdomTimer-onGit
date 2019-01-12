@@ -13,7 +13,7 @@ protocol TimerViewProtocols {
     // TimerViewControllerが設定し、TimerFileで実行される
     func showText(text: String) -> Void
     
-//    func reflectButtonStyle(buttonName: String) -> Void
+    func reflectButtonStyle(tag: String) -> Void
 }
 
 protocol TimerTableDelegate {

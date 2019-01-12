@@ -35,7 +35,6 @@ class SelectMonitorViewController: UITableViewController {
         // Doneが押されたら
         // 新しいタイマーを作る
         let newTimer = pickerCell.makeTimer()
-        print(newTimer.initialWholeSecond)
         
         if newTimer.initialWholeSecond == 0 {
             // 秒数０、失敗、アラートビュー
@@ -69,8 +68,9 @@ class SelectMonitorViewController: UITableViewController {
 //    These are the tableView (timePicker) Settings
 //    これらはテーブルビュー(timePicker)の設定です
     
-    let sections = ["Set Your Time", ""]
-    let normalCells = ["Notification", "Sounds"]
+    let sections = ["Time", "Basic Status", "Alarm and Notification"]
+    let basicCells = ["Title", "Repetation"]
+    let notifyCells = ["Notification", "Sounds"]
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // テーブルビューのセクションの数
@@ -83,7 +83,7 @@ class SelectMonitorViewController: UITableViewController {
         if section == 0 {
             rows = 1
         } else if section == 1 {
-            rows = normalCells.count
+            rows = notifyCells.count
         }
         return rows
     }
@@ -103,17 +103,29 @@ class SelectMonitorViewController: UITableViewController {
             
             return pickerCell
             
-        } else {
+        } else if indexPath.section == 1 {
             
             var normalCell: UITableViewCell!
             normalCell = tableView.dequeueReusableCell(withIdentifier: "normalCell", for: indexPath)
             
-            normalCell.textLabel?.text = normalCells[indexPath.row]
-            if indexPath.row == 1 {
+            normalCell.textLabel?.text = basicCells[indexPath.row]
+            
+            if indexPath.row == 0 {
                 normalCell.accessoryType = .disclosureIndicator
             }
             
             return normalCell
+        } else {
+            var normalCell2: UITableViewCell!
+            normalCell2 = tableView.dequeueReusableCell(withIdentifier: "normalCell2", for: indexPath)
+            
+            normalCell2.textLabel?.text = notifyCells[indexPath.row]
+            
+            if indexPath.row == 1 {
+                normalCell2.accessoryType = .disclosureIndicator
+            }
+            
+            return normalCell2
         }
     }
 

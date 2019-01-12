@@ -33,7 +33,7 @@ class TimerFile {
     var title: String!
     var passageForTimerLabel: String!
     
-    // デシ秒を使えるか
+    // デシ秒を使えるか（未使用）
     var isDeciSecond: Bool!
     
     // タイマーがカウントダウンしてるか
@@ -57,11 +57,13 @@ class TimerFile {
         self.currentWholeSecond = Float(wholeS)
         self.initialWholeSecond = Float(wholeS)
         
+        isDeciSecond = false
+        isBeforeStart = true
+        
         reflectTimeText(second: self.limitedSecond, minute: self.limitedMinute, hour: self.limitedHour)
         
         title = "Timer-A"
         
-        isBeforeStart = true
         
         alarmAudioPlayer = setSoundPlayer(fileName: "receipt01")
     }
@@ -77,6 +79,7 @@ class TimerFile {
         
         title = "Timer-B"
         
+        isDeciSecond = false
         isBeforeStart = true
         
     }
@@ -96,11 +99,24 @@ class TimerFile {
         self.currentWholeSecond -= 0.1
         
         reflectLimitedTime(time: self.currentWholeSecond)
-        reflectTimeText(second: self.limitedSecond, minute: self.limitedMinute, hour: self.limitedHour)
+        
+        if isDeciSecond {
+            reflectTimeText(decisecond: self.limitedDeciSecond,
+                            second: self.limitedSecond,
+                            minute: self.limitedMinute,
+                            hour: self.limitedHour)
+        } else {
+            let secPointDeciSecond: Float = Float(self.limitedSecond) + Float(self.limitedDeciSecond)/10
+            reflectTimeText(second: secPointDeciSecond, minute: self.limitedMinute, hour: self.limitedHour)
+        }
         
         if self.currentWholeSecond <= 0.0 {
             // タイマー終了時
             timer.invalidate()
+            
+            delegate?.reflectButtonStyle(tag: "Done")
+            
+            self.alarmAudioPlayer.play()
         }
     }
     
@@ -110,10 +126,37 @@ class TimerFile {
         // Intにして値を繰り下げる
         let wholeSecondInt: Int = Int(time)
         
-        self.limitedDeciSecond = Int( Float(wholeSecondInt) - time * 10 )
+        self.limitedDeciSecond = Int( (time - Float(wholeSecondInt)) * 10 )
         self.limitedSecond = wholeSecondInt % 60
-        self.limitedMinute = (wholeSecondInt % 3660) / 60
+        self.limitedMinute = (wholeSecondInt % 3600) / 60
         self.limitedHour = wholeSecondInt / 3600
+    }
+    
+    func reflectTimeText(second: Float, minute: Int, hour: Int) {
+        
+        //  テキストに表示（デシ秒非対応）
+        
+        let mixedSecond: Int = Int(ceilf(second))
+        
+        var hourString: String = String(hour)
+        var minuteString: String = String(minute)
+        var secondString: String = String(mixedSecond)
+        
+        if hour < 10 {
+            hourString = "0" + hourString
+        }
+        if minute < 10 {
+            minuteString = "0" + minuteString
+        }
+        if mixedSecond < 10 {
+            secondString = "0" + secondString
+        }
+        
+        // テキストに表示（TimerViewへはデリゲートを使う）
+        let passage: String = "\(hourString):\(minuteString):\(secondString)"
+        self.passageForTimerLabel = passage
+        
+        delegate?.showText(text: passage)
     }
     
     func reflectTimeText(second: Int, minute: Int, hour: Int) {
@@ -134,7 +177,12 @@ class TimerFile {
         }
         
         // テキストに表示（TimerViewへはデリゲートを使う）
-        let passage: String = "\(hourString):\(minuteString):\(secondString)"
+        let passage: String!
+        if self.isDeciSecond {
+            passage = "\(hourString):\(minuteString):\(secondString):0"
+        } else {
+            passage = "\(hourString):\(minuteString):\(secondString)"
+        }
         self.passageForTimerLabel = passage
         
         delegate?.showText(text: passage)
@@ -161,7 +209,7 @@ class TimerFile {
         }
         
         // テキストに表示（TimerViewへはデリゲートを使う）
-        let passage: String = "\(hourString):\(minuteString):\(second):\(decisecond)"
+        let passage: String = "\(hourString):\(minuteString):\(secondString):\(decisecondString)"
         self.passageForTimerLabel = passage
         
         delegate?.showText(text: passage)

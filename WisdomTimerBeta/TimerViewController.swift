@@ -56,22 +56,22 @@ class TimerViewController: UIViewController, TimerViewProtocols {
     @IBAction func onDoneButton() {
         timerFile.doneAction()
         
-        reflectButtonStyle(buttonName: "Done")
+        reflectButtonStyle(tag: "Done")
     }
     
     @IBAction func onRestartButton() {
         
         if restartButton.titleLabel?.text == "Pause" {
             timerFile.pauseAction()
-            reflectButtonStyle(buttonName: "Pause")
+            reflectButtonStyle(tag: "Pause")
         } else {
             
             if timerFile.isBeforeStart {
                 timerFile.startAction()
-                reflectButtonStyle(buttonName: "Start")
+                reflectButtonStyle(tag: "Start")
             } else {
                 timerFile.restartAction()
-                reflectButtonStyle(buttonName: "Restart")
+                reflectButtonStyle(tag: "Restart")
             }
         }
         
@@ -82,9 +82,9 @@ class TimerViewController: UIViewController, TimerViewProtocols {
         timeLabel.text = text
     }
     
-    func reflectButtonStyle(buttonName: String) {
+    func reflectButtonStyle(tag: String) {
         
-        switch buttonName {
+        switch tag {
         case "Start":
             // Start ボタンが押された時
             fallthrough
@@ -104,7 +104,7 @@ class TimerViewController: UIViewController, TimerViewProtocols {
             restartButton.setTitleColorToMagenta()
             
         default:
-            print("\(buttonName)が引数に入力されました。関数は実行されません。")
+            print("\(tag)が引数に入力されました。関数は実行されません。")
         }
     }
     
