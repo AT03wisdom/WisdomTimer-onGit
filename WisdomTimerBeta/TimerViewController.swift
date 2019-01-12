@@ -65,8 +65,14 @@ class TimerViewController: UIViewController, TimerViewProtocols {
             timerFile.pauseAction()
             reflectButtonStyle(buttonName: "Pause")
         } else {
-            timerFile.restartAction()
-            reflectButtonStyle(buttonName: "Restart")
+            
+            if timerFile.isBeforeStart {
+                timerFile.startAction()
+                reflectButtonStyle(buttonName: "Start")
+            } else {
+                timerFile.restartAction()
+                reflectButtonStyle(buttonName: "Restart")
+            }
         }
         
     }
@@ -79,6 +85,9 @@ class TimerViewController: UIViewController, TimerViewProtocols {
     func reflectButtonStyle(buttonName: String) {
         
         switch buttonName {
+        case "Start":
+            // Start ボタンが押された時
+            fallthrough
         case "Restart":
             // Restart ボタンが押された時
             restartButton.setTitle("Pause", for: .normal)

@@ -36,8 +36,8 @@ class TimerFile {
     // デシ秒を使えるか
     var isDeciSecond: Bool!
     
-    // タイマーがカウントダウンしてるか(未使用)
-    var isTimerStopping: Bool!
+    // タイマーがカウントダウンしてるか
+    var isBeforeStart: Bool!
     
     // オリジナル・フリー音源の配列とオーディオプレーヤー
     var musicArray: [String] = ["receipt01"]
@@ -61,7 +61,7 @@ class TimerFile {
         
         title = "Timer-A"
         
-        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(decreaseObjc), userInfo: nil, repeats: true)
+        isBeforeStart = true
         
         alarmAudioPlayer = setSoundPlayer(fileName: "receipt01")
     }
@@ -77,7 +77,8 @@ class TimerFile {
         
         title = "Timer-B"
         
-        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(decreaseObjc), userInfo: nil, repeats: true)
+        isBeforeStart = true
+        
     }
     
     func increase(sec: Float) {
@@ -186,7 +187,11 @@ class TimerFile {
     }
     
     func startAction() {
-        // Startボタンが押された時
+        // restartボタンが押された時 (Start)
+        
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(decreaseObjc), userInfo: nil, repeats: true)
+        
+        isBeforeStart = false
     }
     
     func doneAction() {
@@ -201,6 +206,8 @@ class TimerFile {
         reflectTimeText(second: self.limitedSecond, minute: self.limitedMinute, hour: self.limitedHour)
         
         self.pauseWholeSecond = self.initialWholeSecond
+        
+        isBeforeStart = true
     }
     
     func pauseAction() {
@@ -210,18 +217,23 @@ class TimerFile {
         self.pauseWholeSecond = self.currentWholeSecond
         // タイマーの状況を全部リセットする
         timer.invalidate()
+        
+        isBeforeStart = false
     }
     
     func restartAction() {
-        // restartボタンが押された時
+        // restartボタンが押された時 (Restart)
         
         // 時間・表示をpause時に戻す
         self.currentWholeSecond = self.pauseWholeSecond
-        reflectLimitedTime(time: self.initialWholeSecond)
+        reflectLimitedTime(time: self.currentWholeSecond)
         reflectTimeText(second: self.limitedSecond, minute: self.limitedMinute, hour: self.limitedHour)
+        print(self.limitedSecond, self.limitedMinute, self.limitedHour)
         
         // timerはリスタート必至
         timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(decreaseObjc), userInfo: nil, repeats: true)
+        
+        isBeforeStart = false
     }
     
 }

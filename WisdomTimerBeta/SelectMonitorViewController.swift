@@ -44,7 +44,7 @@ class SelectMonitorViewController: UITableViewController {
                 title: "OK",
                 style: UIAlertAction.Style.cancel,
                 handler: { action in
-                    print("Timer has been made.")
+                    print("Timer has not been made.")
             })
             failAlert.addAction(sureButton)
             
