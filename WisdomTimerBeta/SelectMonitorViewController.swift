@@ -13,8 +13,17 @@ class SelectMonitorViewController: UITableViewController {
     var pickerView: UIPickerView!
     
     var pickerCell: WisdomTableViewCell!
+    var titleCell: UITableViewCell!
+    var stepperCell: UITableViewCell!
     
     var timerTableDelegate: TimerTableDelegate?
+    
+    var tentativeTitle: String!
+    
+    var repetationStepper: UIStepper = UIStepper()
+    
+    var notificationSwitch: UISwitch = UISwitch()
+    var vibrationSwitch: UISwitch = UISwitch()
     
     // 時・分・秒のデータ
     let timeDatas = [[Int](0...23), [Int](0...59), [Int](0...59)]
@@ -24,6 +33,23 @@ class SelectMonitorViewController: UITableViewController {
 
         // Do any additional setup after loading the view.
         
+        repetationStepper.maximumValue = 100
+        repetationStepper.minimumValue = 0
+        repetationStepper.stepValue = 1
+        repetationStepper.value = 1
+        repetationStepper.addTarget(self, action: #selector(stepperAction(stepper:)), for: .valueChanged)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        // TitleMonitorVCから帰ってきたときのアクション（タイトルを設定）
+        let titleMonitorVC: TitleMonitorViewController = storyboard?.instantiateViewController(withIdentifier: "setTitle") as! TitleMonitorViewController
+        
+        if let cell = titleMonitorVC.cell {
+            tentativeTitle = cell.getText()
+            print(tentativeTitle)
+            titleCell.detailTextLabel?.text = tentativeTitle
+        }
     }
     
     @IBAction func cancelButtonDidTouch(sender: AnyObject) {
@@ -35,6 +61,11 @@ class SelectMonitorViewController: UITableViewController {
         // Doneが押されたら
         // 新しいタイマーを作る
         let newTimer = pickerCell.makeTimer()
+        
+        newTimer.title = tentativeTitle
+        newTimer.isNotification = notificationSwitch.isOn
+        newTimer.isVibrate = vibrationSwitch.isOn
+        newTimer.howrepetation = Int(repetationStepper.value)
         
         if newTimer.initialWholeSecond == 0 {
             // 秒数０、失敗、アラートビュー
@@ -70,7 +101,7 @@ class SelectMonitorViewController: UITableViewController {
     
     let sections = ["Time", "Basic Status", "Alarm and Notification"]
     let basicCells = ["Title", "Repetation"]
-    let notifyCells = ["Notification", "Sounds"]
+    let notifyCells = ["Notification", "Vibration", "Sounds"]
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // テーブルビューのセクションの数
@@ -83,6 +114,8 @@ class SelectMonitorViewController: UITableViewController {
         if section == 0 {
             rows = 1
         } else if section == 1 {
+            rows = basicCells.count
+        } else if section == 2 {
             rows = notifyCells.count
         }
         return rows
@@ -111,7 +144,25 @@ class SelectMonitorViewController: UITableViewController {
             normalCell.textLabel?.text = basicCells[indexPath.row]
             
             if indexPath.row == 0 {
-                normalCell.accessoryType = .disclosureIndicator
+                // title settings 名前設定
+                titleCell = tableView.dequeueReusableCell(withIdentifier: "normalCell", for: indexPath)
+                titleCell.textLabel?.text = basicCells[indexPath.row]
+                titleCell.accessoryType = .disclosureIndicator
+                titleCell.detailTextLabel?.text = ""
+                
+                if tentativeTitle != nil {
+                    titleCell.detailTextLabel?.text = tentativeTitle
+                }
+                return titleCell
+            }
+            
+            if indexPath.row == 1 {
+                // repetation settings 繰り返し設定
+                stepperCell = tableView.dequeueReusableCell(withIdentifier: "normalCell", for: indexPath)
+                stepperCell.textLabel?.text = basicCells[indexPath.row]
+                stepperCell.accessoryView = repetationStepper
+                stepperCell.detailTextLabel?.text = String(Int(repetationStepper.value))
+                return stepperCell
             }
             
             return normalCell
@@ -120,13 +171,62 @@ class SelectMonitorViewController: UITableViewController {
             normalCell2 = tableView.dequeueReusableCell(withIdentifier: "normalCell2", for: indexPath)
             
             normalCell2.textLabel?.text = notifyCells[indexPath.row]
+            normalCell2.detailTextLabel?.text = ""
+            
+            if indexPath.row == 0 {
+                // notification settings 通知設定
+                normalCell2.accessoryView = notificationSwitch
+            }
             
             if indexPath.row == 1 {
+                // vibration settings 本体振動設定
+                normalCell2.accessoryView = vibrationSwitch
+            }
+            
+            if indexPath.row == 2 {
+                // sounds settings 通知音設定
                 normalCell2.accessoryType = .disclosureIndicator
             }
             
             return normalCell2
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // セルが選択された時
+        
+        if indexPath.section == 1 && indexPath.row == 0 {
+            // Title選択時
+            tableView.deselectRow(at: indexPath, animated: true)
+            
+            performSegue(withIdentifier: "toTitleSettings", sender: nil)
+        } else if indexPath.section == 2 && indexPath.row == 2 {
+            // Sounds選択時
+            tableView.deselectRow(at: indexPath, animated: true)
+        } else {
+            // いわゆるnormalCell
+            tableView.deselectRow(at: indexPath, animated: false)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "toTitleSettings" {
+            let titleMonitorVC: TitleMonitorViewController = (segue.destination as? TitleMonitorViewController)!
+            
+            if tentativeTitle != nil {
+                titleMonitorVC.textView.text = tentativeTitle
+            }
+        } else if segue.identifier == "i" {
+            
+        }
+        
+    }
+    
+    @objc func stepperAction(stepper: UIStepper) {
+        // repetationStepperが変更された時、repetationLabelの値を変更させる
+        let repeatTime: Int = Int(stepper.value)
+        stepperCell.detailTextLabel?.text = "\(repeatTime)  "
     }
 
 }

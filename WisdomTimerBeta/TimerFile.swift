@@ -39,6 +39,11 @@ class TimerFile {
     // タイマーがカウントダウンしてるか
     var isBeforeStart: Bool!
     
+    // 通知やバイブレーションなどについて
+    var isNotification: Bool!
+    var isVibrate: Bool!
+    var howrepetation: Int!
+    
     // オリジナル・フリー音源の配列とオーディオプレーヤー
     var musicArray: [String] = ["receipt01"]
     var alarmAudioPlayer: AVAudioPlayer!

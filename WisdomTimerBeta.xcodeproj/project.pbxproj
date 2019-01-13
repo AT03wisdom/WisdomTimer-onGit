@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A3014BB621E8C6C600E668C6 /* receipt01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A3014BB521E8C6C600E668C6 /* receipt01.mp3 */; };
+		A3014BBA21EB1F7E00E668C6 /* TitleMonitorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3014BB921EB1F7E00E668C6 /* TitleMonitorViewController.swift */; };
+		A3014BBC21EB2E6400E668C6 /* TextWriterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3014BBB21EB2E6400E668C6 /* TextWriterCell.swift */; };
 		A341E4AC21B7F51300859F8F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A341E4AB21B7F51300859F8F /* AppDelegate.swift */; };
 		A341E4AE21B7F51300859F8F /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A341E4AD21B7F51300859F8F /* MenuViewController.swift */; };
 		A341E4B121B7F51300859F8F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A341E4AF21B7F51300859F8F /* Main.storyboard */; };
@@ -44,6 +46,8 @@
 
 /* Begin PBXFileReference section */
 		A3014BB521E8C6C600E668C6 /* receipt01.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = receipt01.mp3; sourceTree = "<group>"; };
+		A3014BB921EB1F7E00E668C6 /* TitleMonitorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleMonitorViewController.swift; sourceTree = "<group>"; };
+		A3014BBB21EB2E6400E668C6 /* TextWriterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextWriterCell.swift; sourceTree = "<group>"; };
 		A341E4A821B7F51300859F8F /* WisdomTimerBeta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WisdomTimerBeta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A341E4AB21B7F51300859F8F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A341E4AD21B7F51300859F8F /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
@@ -128,14 +132,16 @@
 				A341E4AD21B7F51300859F8F /* MenuViewController.swift */,
 				A341E4DD21BAB70B00859F8F /* TimerViewController.swift */,
 				A363D7E421DF5F9900BAEC71 /* SelectMonitorViewController.swift */,
+				A3014BB921EB1F7E00E668C6 /* TitleMonitorViewController.swift */,
 				A341E4AF21B7F51300859F8F /* Main.storyboard */,
 				A363D7E221DF5F4D00BAEC71 /* SelectMonitorPresentationController.swift */,
 				A363D7DE21DEC56E00BAEC71 /* CustomAnimatedTransitioning.swift */,
 				A363D7E621E0E58500BAEC71 /* WisdomTableViewCell.swift */,
+				A3014BBB21EB2E6400E668C6 /* TextWriterCell.swift */,
+				A341E4B221B7F51600859F8F /* Assets.xcassets */,
 				A341E4DB21B7FB3D00859F8F /* TimerFile.swift */,
 				A363D7D621D465F400BAEC71 /* TimerViewProtocols.swift */,
 				A363D7D821D60BE600BAEC71 /* Extensions.swift */,
-				A341E4B221B7F51600859F8F /* Assets.xcassets */,
 				A341E4B421B7F51600859F8F /* LaunchScreen.storyboard */,
 				A341E4B721B7F51600859F8F /* Info.plist */,
 			);
@@ -297,10 +303,12 @@
 				A363D7E721E0E58500BAEC71 /* WisdomTableViewCell.swift in Sources */,
 				A363D7D921D60BE600BAEC71 /* Extensions.swift in Sources */,
 				A341E4DC21B7FB3D00859F8F /* TimerFile.swift in Sources */,
+				A3014BBC21EB2E6400E668C6 /* TextWriterCell.swift in Sources */,
 				A363D7E321DF5F4D00BAEC71 /* SelectMonitorPresentationController.swift in Sources */,
 				A341E4AE21B7F51300859F8F /* MenuViewController.swift in Sources */,
 				A363D7E521DF5F9900BAEC71 /* SelectMonitorViewController.swift in Sources */,
 				A363D7D721D465F400BAEC71 /* TimerViewProtocols.swift in Sources */,
+				A3014BBA21EB1F7E00E668C6 /* TitleMonitorViewController.swift in Sources */,
 				A341E4AC21B7F51300859F8F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -52,6 +52,8 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
         // 専用ぺーじを開く
         let numberOfTouchedCell: Int = indexPath.row
         performSegue(withIdentifier: "ToTimerView", sender: numberOfTouchedCell)
