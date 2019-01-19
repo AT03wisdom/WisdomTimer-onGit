@@ -134,17 +134,17 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="E73-jf-vXI">
-                                            <rect key="frame" x="5" y="5" width="404" height="49.5"/>
+                                            <rect key="frame" x="10" y="10" width="394" height="39.5"/>
                                             <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="E73-jf-vXI" firstAttribute="leading" secondItem="2nk-gB-O0X" secondAttribute="leading" constant="5" id="DzW-bW-NfA"/>
-                                        <constraint firstItem="E73-jf-vXI" firstAttribute="top" secondItem="2nk-gB-O0X" secondAttribute="top" constant="5" id="g1g-t0-b7k"/>
-                                        <constraint firstAttribute="trailing" secondItem="E73-jf-vXI" secondAttribute="trailing" constant="5" id="sp5-1Q-acJ"/>
-                                        <constraint firstAttribute="bottom" secondItem="E73-jf-vXI" secondAttribute="bottom" constant="5" id="ymW-F0-z39"/>
+                                        <constraint firstItem="E73-jf-vXI" firstAttribute="leading" secondItem="2nk-gB-O0X" secondAttribute="leading" constant="10" id="DzW-bW-NfA"/>
+                                        <constraint firstItem="E73-jf-vXI" firstAttribute="top" secondItem="2nk-gB-O0X" secondAttribute="top" constant="10" id="g1g-t0-b7k"/>
+                                        <constraint firstAttribute="trailing" secondItem="E73-jf-vXI" secondAttribute="trailing" constant="10" id="sp5-1Q-acJ"/>
+                                        <constraint firstAttribute="bottom" secondItem="E73-jf-vXI" secondAttribute="bottom" constant="10" id="ymW-F0-z39"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>

@@ -11,6 +11,8 @@ import UIKit
 class TextWriterCell: UITableViewCell, UITextFieldDelegate {
     
     @IBOutlet var textField: UITextField!
+    
+    var presentingVC: SelectMonitorViewController!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,12 +33,18 @@ class TextWriterCell: UITableViewCell, UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        presentingVC.titleCell.detailTextLabel!.text = getText()
         textField.resignFirstResponder()
         return true
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         textField.resignFirstResponder()
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        presentingVC.titleCell.detailTextLabel!.text = getText()
+        return true
     }
 
 }

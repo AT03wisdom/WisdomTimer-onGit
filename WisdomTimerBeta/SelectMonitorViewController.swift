@@ -12,6 +12,8 @@ class SelectMonitorViewController: UITableViewController {
     
     var pickerView: UIPickerView!
     
+    var titleMonitorVC: TitleMonitorViewController? = nil
+    
     var pickerCell: WisdomTableViewCell!
     var titleCell: UITableViewCell!
     var stepperCell: UITableViewCell!
@@ -33,6 +35,8 @@ class SelectMonitorViewController: UITableViewController {
 
         // Do any additional setup after loading the view.
         
+        titleMonitorVC = storyboard?.instantiateViewController(withIdentifier: "setTitle") as? TitleMonitorViewController
+        
         repetationStepper.maximumValue = 100
         repetationStepper.minimumValue = 0
         repetationStepper.stepValue = 1
@@ -43,13 +47,18 @@ class SelectMonitorViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         // TitleMonitorVCから帰ってきたときのアクション（タイトルを設定）
-        let titleMonitorVC: TitleMonitorViewController = storyboard?.instantiateViewController(withIdentifier: "setTitle") as! TitleMonitorViewController
         
-        if let cell = titleMonitorVC.cell {
+        print("\(String(describing: titleMonitorVC))がtimerMoniterのはずですよ？")
+        
+        if let cell = titleMonitorVC?.textCell {
             tentativeTitle = cell.getText()
-            print(tentativeTitle)
+            print("\(String(describing: tentativeTitle))がtentativeのはずですよ？")
             titleCell.detailTextLabel?.text = tentativeTitle
         }
+        
+        self.tableView.reloadData()
+        super.viewWillAppear(true)
+        print("reload&appearしとるぞ！生きとるぞ！")
     }
     
     @IBAction func cancelButtonDidTouch(sender: AnyObject) {
@@ -212,10 +221,11 @@ class SelectMonitorViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "toTitleSettings" {
-            let titleMonitorVC: TitleMonitorViewController = (segue.destination as? TitleMonitorViewController)!
+            titleMonitorVC = (segue.destination as? TitleMonitorViewController)!
+            titleMonitorVC?.presentingVC = self
             
             if tentativeTitle != nil {
-                titleMonitorVC.textView.text = tentativeTitle
+                titleMonitorVC?.textView.text = tentativeTitle
             }
         } else if segue.identifier == "i" {
             

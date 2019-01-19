@@ -8,10 +8,10 @@
 import UIKit
 class TitleMonitorViewController: UITableViewController {
     
+    var textCell: TextWriterCell!
     var textView: UITextField!
-    var titleText: String!
     
-    var cell: TextWriterCell!
+    var presentingVC: SelectMonitorViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,14 +25,23 @@ class TitleMonitorViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        cell = tableView.dequeueReusableCell(withIdentifier: "titleName", for: indexPath) as? TextWriterCell
+        textCell = tableView.dequeueReusableCell(withIdentifier: "titleName", for: indexPath) as? TextWriterCell
         
-        return cell
+        if textView != nil {
+            if let newTitle = textView.text {
+                textCell.textField?.text = newTitle
+            }
+        }
+        
+        textCell.presentingVC = self.presentingVC
+        
+        return textCell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? TextWriterCell {
             cell.becomeFirstResponder()
         }
+        self.tableView.deselectRow(at: indexPath, animated: false)
     }
 }
