@@ -48,17 +48,12 @@ class SelectMonitorViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         // TitleMonitorVCから帰ってきたときのアクション（タイトルを設定）
         
-        print("\(String(describing: titleMonitorVC))がtimerMoniterのはずですよ？")
+        super.viewWillAppear(true)
         
         if let cell = titleMonitorVC?.textCell {
             tentativeTitle = cell.getText()
-            print("\(String(describing: tentativeTitle))がtentativeのはずですよ？")
             titleCell.detailTextLabel?.text = tentativeTitle
         }
-        
-        self.tableView.reloadData()
-        super.viewWillAppear(true)
-        print("reload&appearしとるぞ！生きとるぞ！")
     }
     
     @IBAction func cancelButtonDidTouch(sender: AnyObject) {
@@ -71,7 +66,11 @@ class SelectMonitorViewController: UITableViewController {
         // 新しいタイマーを作る
         let newTimer = pickerCell.makeTimer()
         
-        newTimer.title = tentativeTitle
+        if tentativeTitle == "" || tentativeTitle == nil {
+            newTimer.title = "New Timer"
+        } else {
+            newTimer.title = tentativeTitle
+        }
         newTimer.isNotification = notificationSwitch.isOn
         newTimer.isVibrate = vibrationSwitch.isOn
         newTimer.howrepetation = Int(repetationStepper.value)
@@ -225,7 +224,7 @@ class SelectMonitorViewController: UITableViewController {
             titleMonitorVC?.presentingVC = self
             
             if tentativeTitle != nil {
-                titleMonitorVC?.textView.text = tentativeTitle
+                titleMonitorVC?.recentText = tentativeTitle
             }
         } else if segue.identifier == "i" {
             

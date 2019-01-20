@@ -23,6 +23,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewWillAppear(_ animated: Bool) {
         timerTable.reloadData()
+        super.viewWillAppear(true)
     }
     
     func updateTableView() {

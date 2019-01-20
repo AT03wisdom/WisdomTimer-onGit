@@ -10,6 +10,7 @@ class TitleMonitorViewController: UITableViewController {
     
     var textCell: TextWriterCell!
     var textView: UITextField!
+    var recentText: String!
     
     var presentingVC: SelectMonitorViewController!
 
@@ -27,10 +28,8 @@ class TitleMonitorViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         textCell = tableView.dequeueReusableCell(withIdentifier: "titleName", for: indexPath) as? TextWriterCell
         
-        if textView != nil {
-            if let newTitle = textView.text {
-                textCell.textField?.text = newTitle
-            }
+        if recentText != nil {
+            textCell.textField?.text = recentText
         }
         
         textCell.presentingVC = self.presentingVC

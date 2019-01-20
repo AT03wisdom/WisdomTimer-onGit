@@ -67,7 +67,7 @@ class TimerFile {
         
         reflectTimeText(second: self.limitedSecond, minute: self.limitedMinute, hour: self.limitedHour)
         
-        title = "Timer-A"
+        title = "New Timer A"
         
         
         alarmAudioPlayer = setSoundPlayer(fileName: "receipt01")
@@ -82,7 +82,7 @@ class TimerFile {
         
         reflectTimeText(second: self.limitedSecond, minute: self.limitedMinute, hour: self.limitedHour)
         
-        title = "Timer-B"
+        title = "New Timer B"
         
         isDeciSecond = false
         isBeforeStart = true
