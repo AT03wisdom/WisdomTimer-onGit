@@ -10,6 +10,7 @@
 		A3014BB621E8C6C600E668C6 /* receipt01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A3014BB521E8C6C600E668C6 /* receipt01.mp3 */; };
 		A3014BBA21EB1F7E00E668C6 /* TitleMonitorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3014BB921EB1F7E00E668C6 /* TitleMonitorViewController.swift */; };
 		A3014BBC21EB2E6400E668C6 /* TextWriterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3014BBB21EB2E6400E668C6 /* TextWriterCell.swift */; };
+		A302139D21FC30B00033FC23 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A302139C21FC30B00033FC23 /* icon.png */; };
 		A341E4AC21B7F51300859F8F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A341E4AB21B7F51300859F8F /* AppDelegate.swift */; };
 		A341E4AE21B7F51300859F8F /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A341E4AD21B7F51300859F8F /* MenuViewController.swift */; };
 		A341E4B121B7F51300859F8F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A341E4AF21B7F51300859F8F /* Main.storyboard */; };
@@ -48,6 +49,7 @@
 		A3014BB521E8C6C600E668C6 /* receipt01.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = receipt01.mp3; sourceTree = "<group>"; };
 		A3014BB921EB1F7E00E668C6 /* TitleMonitorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleMonitorViewController.swift; sourceTree = "<group>"; };
 		A3014BBB21EB2E6400E668C6 /* TextWriterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextWriterCell.swift; sourceTree = "<group>"; };
+		A302139C21FC30B00033FC23 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		A341E4A821B7F51300859F8F /* WisdomTimerBeta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WisdomTimerBeta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A341E4AB21B7F51300859F8F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A341E4AD21B7F51300859F8F /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 		A341E4AA21B7F51300859F8F /* WisdomTimerBeta */ = {
 			isa = PBXGroup;
 			children = (
+				A302139C21FC30B00033FC23 /* icon.png */,
 				A3014BB421E8C6C600E668C6 /* AlarmMusic */,
 				A341E4AB21B7F51300859F8F /* AppDelegate.swift */,
 				A341E4AD21B7F51300859F8F /* MenuViewController.swift */,
@@ -271,6 +274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3014BB621E8C6C600E668C6 /* receipt01.mp3 in Resources */,
+				A302139D21FC30B00033FC23 /* icon.png in Resources */,
 				A341E4B621B7F51600859F8F /* LaunchScreen.storyboard in Resources */,
 				A341E4B321B7F51600859F8F /* Assets.xcassets in Resources */,
 				A341E4B121B7F51300859F8F /* Main.storyboard in Resources */,

@@ -7,7 +7,9 @@
 //
 
 import UIKit
+import UserNotifications
 import AVFoundation
+import AudioToolbox
 
 class TimerFile {
     
@@ -33,7 +35,7 @@ class TimerFile {
     var title: String!
     var passageForTimerLabel: String!
     
-    // デシ秒を使えるか（未使用）
+    // デシ秒を使えるか
     var isDeciSecond: Bool!
     
     // タイマーがカウントダウンしてるか
@@ -47,6 +49,7 @@ class TimerFile {
     // オリジナル・フリー音源の配列とオーディオプレーヤー
     var musicArray: [String] = ["receipt01"]
     var alarmAudioPlayer: AVAudioPlayer!
+    var notificationPlayer: UNNotificationSound!
     
     // TimerFileの核部分、カウントダウンを制御する
     var timer: Timer = Timer()
@@ -69,8 +72,9 @@ class TimerFile {
         
         title = "New Timer A"
         
-        
-        alarmAudioPlayer = setSoundPlayer(fileName: "receipt01")
+        let bothFileName = "receipt01"
+        alarmAudioPlayer = setSoundPlayer(fileName: bothFileName)
+        notificationPlayer = setNotificationPlayer(fileName: bothFileName)
     }
     
     init(wholeSecond: Float) {
@@ -84,9 +88,12 @@ class TimerFile {
         
         title = "New Timer B"
         
-        isDeciSecond = false
+        isDeciSecond = true
         isBeforeStart = true
         
+        let bothFileName = "receipt01"
+        alarmAudioPlayer = setSoundPlayer(fileName: bothFileName)
+        notificationPlayer = setNotificationPlayer(fileName: bothFileName)
     }
     
     func increase(sec: Float) {
@@ -121,7 +128,23 @@ class TimerFile {
             
             delegate?.reflectButtonStyle(tag: "Done")
             
-            self.alarmAudioPlayer.play()
+            self.isBeforeStart = true
+            
+            DispatchQueue.main.asyncAfter( deadline: .now() + 0.2 ) {
+                //処理
+                self.doneAction()
+                self.delegate?.reflectButtonStyle(tag: "Done")
+                
+                if self.isVibrate {
+                    AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+                }
+                
+                if self.isNotification {
+                    self.notificationAction()
+                }
+                
+                self.alarmAudioPlayer.play()
+            }
         }
     }
     
@@ -135,6 +158,21 @@ class TimerFile {
         self.limitedSecond = wholeSecondInt % 60
         self.limitedMinute = (wholeSecondInt % 3600) / 60
         self.limitedHour = wholeSecondInt / 3600
+        
+        if !self.isDeciSecond && self.limitedSecond == 59 && self.limitedDeciSecond != 0 {
+            self.limitedDeciSecond = 0
+            self.limitedSecond += 1
+        }
+        
+        if self.limitedSecond == 60 {
+            self.limitedSecond = 0
+            self.limitedMinute += 1
+        }
+        
+        if self.limitedMinute == 60 {
+            self.limitedMinute = 0
+            self.limitedHour += 1
+        }
     }
     
     func reflectTimeText(second: Float, minute: Int, hour: Int) {
@@ -167,9 +205,28 @@ class TimerFile {
     func reflectTimeText(second: Int, minute: Int, hour: Int) {
         
         //  テキストに表示（デシ秒非対応）
-        var hourString: String = String(hour)
-        var minuteString: String = String(minute)
-        var secondString: String = String(second)
+        var hourString: String = "0"
+        var minuteString: String = "0"
+        var secondString: String = "0"
+        
+        if !self.isDeciSecond && self.limitedSecond == 59 && self.limitedDeciSecond != 0 {
+            
+            // 59秒xデシ秒時の特別処理
+            hourString = String(hour)
+            secondString = String(0)
+            minuteString = String(minute + 1)
+            
+            if minuteString == "59" {
+                // 59分時の特別処理
+                minuteString = String(0)
+                hourString = String(hour + 1)
+            }
+        } else {
+            
+            hourString = String(hour)
+            minuteString = String(minute)
+            secondString = String(second)
+        }
         
         if hour < 10 {
             hourString = "0" + hourString
@@ -239,6 +296,18 @@ class TimerFile {
         
     }
     
+    func setNotificationPlayer(fileName: String) -> UNNotificationSound? {
+        if let path = Bundle.main.path(forResource: fileName, ofType: "mp3") {
+            
+            let audioPlayer = UNNotificationSound(named: UNNotificationSoundName(rawValue: path))
+            return audioPlayer
+            
+        } else {
+            print("Error! (通知音楽が見つからないためこちらに逃がしているぞ)")
+            return nil
+        }
+    }
+    
     func startAction() {
         // restartボタンが押された時 (Start)
         
@@ -287,6 +356,28 @@ class TimerFile {
         timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(decreaseObjc), userInfo: nil, repeats: true)
         
         isBeforeStart = false
+    }
+    
+    func notificationAction() {
+        // 通知する
+        
+        // すぐに一度だけ通知（発火）
+        let trigger: UNTimeIntervalNotificationTrigger = UNTimeIntervalNotificationTrigger(timeInterval: 0, repeats: false)
+        
+        // 通知の中身
+        let content = UNMutableNotificationContent()
+        content.title = self.title
+        content.body = "タイマーが終了しました。"
+        content.sound = self.notificationPlayer
+        
+        // 通知を送信
+        let request = UNNotificationRequest(identifier: "uuid", content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request) { (error: Error?) in
+            if let error = error {
+                print("Failed to add request")
+                print(error.localizedDescription)
+            }
+        }
     }
     
 }
