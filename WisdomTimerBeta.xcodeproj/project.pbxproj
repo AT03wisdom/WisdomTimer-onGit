@@ -11,6 +11,7 @@
 		A3014BBA21EB1F7E00E668C6 /* TitleMonitorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3014BB921EB1F7E00E668C6 /* TitleMonitorViewController.swift */; };
 		A3014BBC21EB2E6400E668C6 /* TextWriterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3014BBB21EB2E6400E668C6 /* TextWriterCell.swift */; };
 		A302139D21FC30B00033FC23 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A302139C21FC30B00033FC23 /* icon.png */; };
+		A30213A421FC4A6E0033FC23 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A30213A621FC4A6E0033FC23 /* Localizable.strings */; };
 		A341E4AC21B7F51300859F8F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A341E4AB21B7F51300859F8F /* AppDelegate.swift */; };
 		A341E4AE21B7F51300859F8F /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A341E4AD21B7F51300859F8F /* MenuViewController.swift */; };
 		A341E4B121B7F51300859F8F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A341E4AF21B7F51300859F8F /* Main.storyboard */; };
@@ -50,6 +51,9 @@
 		A3014BB921EB1F7E00E668C6 /* TitleMonitorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleMonitorViewController.swift; sourceTree = "<group>"; };
 		A3014BBB21EB2E6400E668C6 /* TextWriterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextWriterCell.swift; sourceTree = "<group>"; };
 		A302139C21FC30B00033FC23 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		A302139E21FC48810033FC23 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
+		A302139F21FC48810033FC23 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		A30213A521FC4A6E0033FC23 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A341E4A821B7F51300859F8F /* WisdomTimerBeta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WisdomTimerBeta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A341E4AB21B7F51300859F8F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A341E4AD21B7F51300859F8F /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +113,7 @@
 		A341E49F21B7F51300859F8F = {
 			isa = PBXGroup;
 			children = (
+				A30213A621FC4A6E0033FC23 /* Localizable.strings */,
 				A341E4AA21B7F51300859F8F /* WisdomTimerBeta */,
 				A341E4BF21B7F51600859F8F /* WisdomTimerBetaTests */,
 				A341E4CA21B7F51600859F8F /* WisdomTimerBetaUITests */,
@@ -274,6 +279,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3014BB621E8C6C600E668C6 /* receipt01.mp3 in Resources */,
+				A30213A421FC4A6E0033FC23 /* Localizable.strings in Resources */,
 				A302139D21FC30B00033FC23 /* icon.png in Resources */,
 				A341E4B621B7F51600859F8F /* LaunchScreen.storyboard in Resources */,
 				A341E4B321B7F51600859F8F /* Assets.xcassets in Resources */,
@@ -349,10 +355,19 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		A30213A621FC4A6E0033FC23 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A30213A521FC4A6E0033FC23 /* ja */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		A341E4AF21B7F51300859F8F /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				A341E4B021B7F51300859F8F /* Base */,
+				A302139E21FC48810033FC23 /* ja */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -361,6 +376,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A341E4B521B7F51600859F8F /* Base */,
+				A302139F21FC48810033FC23 /* ja */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -372,6 +388,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -433,6 +450,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -489,6 +507,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 62AG45GMPF;
 				INFOPLIST_FILE = WisdomTimerBeta/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -507,6 +526,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 62AG45GMPF;
 				INFOPLIST_FILE = WisdomTimerBeta/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (

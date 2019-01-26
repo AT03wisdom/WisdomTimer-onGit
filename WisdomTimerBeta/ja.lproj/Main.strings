@@ -1,0 +1,33 @@
+
+/* Class = "UILabel"; text = "00:00:00.0"; ObjectID = "CjQ-a2-3GB"; */
+"CjQ-a2-3GB.text" = "00:00:00.0";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "PfT-WM-X4i"; */
+"PfT-WM-X4i.text" = "Title";
+
+/* Class = "UINavigationItem"; title = "Set Title"; ObjectID = "STw-zL-Bjg"; */
+"STw-zL-Bjg.title" = "タイトル設定";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "TR9-PW-cyU"; */
+"TR9-PW-cyU.text" = "Title";
+
+/* Class = "UINavigationItem"; title = "New Timer"; ObjectID = "e6K-1i-Cx8"; */
+"e6K-1i-Cx8.title" = "タイマー";
+
+/* Class = "UINavigationItem"; title = "TitleName"; ObjectID = "jKA-Lx-ZD9"; */
+"jKA-Lx-ZD9.title" = "TitleName";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "jjZ-Pc-SAX"; */
+"jjZ-Pc-SAX.text" = "Detail";
+
+/* Class = "UIButton"; normalTitle = "Pause"; ObjectID = "sSi-yI-bQe"; */
+"sSi-yI-bQe.normalTitle" = "一時停止";
+
+/* Class = "UIButton"; normalTitle = "Done"; ObjectID = "tij-bA-hz4"; */
+"tij-bA-hz4.normalTitle" = "終了";
+
+/* Class = "UINavigationItem"; title = "Timer"; ObjectID = "uEl-oU-7km"; */
+"uEl-oU-7km.title" = "Timer";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "wmv-5X-Dhe"; */
+"wmv-5X-Dhe.text" = "Detail";

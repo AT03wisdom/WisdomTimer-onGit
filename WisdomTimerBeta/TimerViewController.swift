@@ -38,11 +38,11 @@ class TimerViewController: UIViewController, TimerViewProtocols {
         
         if timerFile.timer.isValid {
             // タイマーが動いている時
-            restartButton.setTitle("Pause", for: .normal)
+            restartButton.setTitle(NSLocalizedString("Pause", comment: ""), for: .normal)
             restartButton.setTitleColorToLightGreen()
         } else {
             // タイマーが止まっている時
-            restartButton.setTitle("Start", for: .normal)
+            restartButton.setTitle(NSLocalizedString("Start", comment: ""), for: .normal)
             restartButton.setTitleColorToMagenta()
         }
         
@@ -61,7 +61,7 @@ class TimerViewController: UIViewController, TimerViewProtocols {
     
     @IBAction func onRestartButton() {
         
-        if restartButton.titleLabel?.text == "Pause" {
+        if restartButton.titleLabel?.text == NSLocalizedString("Pause", comment: "") {
             timerFile.pauseAction()
             reflectButtonStyle(tag: "Pause")
         } else {
@@ -90,17 +90,17 @@ class TimerViewController: UIViewController, TimerViewProtocols {
             fallthrough
         case "Restart":
             // Restart ボタンが押された時
-            restartButton.setTitle("Pause", for: .normal)
+            restartButton.setTitle(NSLocalizedString("Pause", comment: ""), for: .normal)
             restartButton.setTitleColorToLightGreen()
             
         case "Pause":
             // Pause ボタンが押された時
-            restartButton.setTitle("Restart", for: .normal)
+            restartButton.setTitle(NSLocalizedString("Restart", comment: ""), for: .normal)
             restartButton.setTitleColorToMagenta()
             
         case "Done":
             // Done ボタンが押された時
-            restartButton.setTitle("Start", for: .normal)
+            restartButton.setTitle(NSLocalizedString("Start", comment: ""), for: .normal)
             restartButton.setTitleColorToMagenta()
             
         default:

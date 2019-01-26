@@ -77,7 +77,7 @@ class SelectMonitorViewController: UITableViewController {
         
         if newTimer.initialWholeSecond == 0 {
             // 秒数０、失敗、アラートビュー
-            let failAlert = UIAlertController(title: "Failed To Make Timer", message: "It is not possible to create a timer due to the specification of the number of seconds or for other reasons.", preferredStyle: UIAlertController.Style.alert)
+            let failAlert = UIAlertController(title: NSLocalizedString("Failed To Make Timer", comment: ""), message: NSLocalizedString("It is not possible to create a timer due to the specification of the number of seconds or for other reasons.", comment: ""), preferredStyle: UIAlertController.Style.alert)
             let sureButton = UIAlertAction(
                 title: "OK",
                 style: UIAlertAction.Style.cancel,
@@ -107,9 +107,9 @@ class SelectMonitorViewController: UITableViewController {
 //    These are the tableView (timePicker) Settings
 //    これらはテーブルビュー(timePicker)の設定です
     
-    let sections = ["Time", "Basic Status", "Alarm and Notification"]
-    let basicCells = ["Title", "Repetation"]
-    let notifyCells = ["Notification", "Vibration", "Sounds"]
+    let sections = [NSLocalizedString("Time", comment: ""), NSLocalizedString("Basic Status", comment: ""), NSLocalizedString("Alarm and Notification", comment: "")]
+    let basicCells = [NSLocalizedString("Title", comment: "")/*, NSLocalizedString("Repetation", comment: "") */]
+    let notifyCells = [NSLocalizedString("Notification", comment: "")/*, NSLocalizedString("Sounds", comment: ""), NSLocalizedString("Vibration", comment: "")*/ ]
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // テーブルビューのセクションの数
@@ -186,12 +186,12 @@ class SelectMonitorViewController: UITableViewController {
                 normalCell2.accessoryView = notificationSwitch
             }
             
-            if indexPath.row == 1 {
+            if indexPath.row == 2 {
                 // vibration settings 本体振動設定
                 normalCell2.accessoryView = vibrationSwitch
             }
             
-            if indexPath.row == 2 {
+            if indexPath.row == 1 {
                 // sounds settings 通知音設定
                 normalCell2.accessoryType = .disclosureIndicator
             }

@@ -1,0 +1,37 @@
+/* 
+  Localizable.strings
+  WisdomTimerBeta
+
+  Created by 田中惇貴 on 2019/01/26.
+  Copyright © 2019 田中惇貴. All rights reserved.
+*/
+
+"Pause" = "一時停止";
+
+"Start" =  "スタート";
+
+"Restart" =  "再開";
+
+"Done" =  "終了";
+
+"Failed To Make Timer" =  "タイマーは作れません";
+
+"It is not possible to create a timer due to the specification of the number of seconds or for other reasons." =  "秒数の指定などの理由により、タイマーを作成することはできません。";
+
+"Time" =  "時間設定";
+
+"Basic Status" =  "基本設定";
+
+"Alarm and Notification" =  "アラーム・通知設定";
+
+"Title" =  "タイトル";
+
+"Repetation" =  "繰り返し";
+
+"Notification" =  "通知を許可";
+
+"Vibration" =  "バイブレーション";
+
+"Sounds" =  "サウンド";
+
+"" =  "";
