@@ -75,10 +75,10 @@ iOSアプリでは、音楽の再生などの一部の機能を除き、バッ�
 そのため私は、以下に示すやり方であたかもバックグラウンド処理が行われているかのように実装しました。
 
 >1. アプリ終了時に現在時刻を計測する。この時刻をAとし、UserDefaultsに保存する。
-2. バックグラウンド中にタイマーが終了した時に通知を送るために、それぞれのタイマーの終了時刻になったら通知がなるようにセットする。
-3. アプリ開始時に現在時刻を計測する。この時刻をBとする。
-4. 2.でやった通知のセットを解除する。
-5. BとAとの時刻の差を求め、その分時刻を前に進める。
+>2. バックグラウンド中にタイマーが終了した時に通知を送るために、それぞれのタイマーの終了時刻になったら通知がなるようにセットする。
+>3. アプリ開始時に現在時刻を計測する。この時刻をBとする。
+>4. 2.でやった通知のセットを解除する。
+>5. BとAとの時刻の差を求め、その分時刻を前に進める。
 
 ここでは詳しいコードは記載しませんが、総勢1200行以上にも及ぶ集大成です。公開された暁には、ぜひダウンロードの方をよろしくお願いします。
 
@@ -174,10 +174,10 @@ In the iOS application, except for some functions such as music playback, backgr
 Therefore, I implemented it as if background processing was done in the following way.
 
 > 1. Measure the current time at the end of the application. Let this time be A, and save it in UserDefaults.
-2. In order to send a notification when the timer expires during the background, set to notify when the end time of each timer comes.
-3. Measure the current time at the start of the application. Let this time be B.
-4. Release the set of notifications done in 2.
-5. Find the difference in time between B and A, and advance the time forward.
+>2. In order to send a notification when the timer expires during the background, set to notify when the end time of each timer comes.
+>3. Measure the current time at the start of the application. Let this time be B.
+>4. Release the set of notifications done in 2.
+>5. Find the difference in time between B and A, and advance the time forward.
 
 Although detailed codes are not described here, it is a culmination that extends over a total of 1,200 lines. Thank you for downloading by all means when it is released.
 
