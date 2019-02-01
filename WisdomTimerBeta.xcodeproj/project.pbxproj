@@ -7,11 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A3014BB621E8C6C600E668C6 /* receipt01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A3014BB521E8C6C600E668C6 /* receipt01.mp3 */; };
 		A3014BBA21EB1F7E00E668C6 /* TitleMonitorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3014BB921EB1F7E00E668C6 /* TitleMonitorViewController.swift */; };
 		A3014BBC21EB2E6400E668C6 /* TextWriterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3014BBB21EB2E6400E668C6 /* TextWriterCell.swift */; };
 		A30213A421FC4A6E0033FC23 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A30213A621FC4A6E0033FC23 /* Localizable.strings */; };
-		A30213AA21FD6F720033FC23 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A30213A921FD6F710033FC23 /* icon.png */; };
 		A341E4AC21B7F51300859F8F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A341E4AB21B7F51300859F8F /* AppDelegate.swift */; };
 		A341E4AE21B7F51300859F8F /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A341E4AD21B7F51300859F8F /* MenuViewController.swift */; };
 		A341E4B121B7F51300859F8F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A341E4AF21B7F51300859F8F /* Main.storyboard */; };
@@ -47,13 +45,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		A3014BB521E8C6C600E668C6 /* receipt01.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = receipt01.mp3; sourceTree = "<group>"; };
 		A3014BB921EB1F7E00E668C6 /* TitleMonitorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleMonitorViewController.swift; sourceTree = "<group>"; };
 		A3014BBB21EB2E6400E668C6 /* TextWriterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextWriterCell.swift; sourceTree = "<group>"; };
 		A302139E21FC48810033FC23 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
 		A302139F21FC48810033FC23 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		A30213A521FC4A6E0033FC23 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A30213A921FD6F710033FC23 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		A341E4A821B7F51300859F8F /* WisdomTimerBeta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WisdomTimerBeta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A341E4AB21B7F51300859F8F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A341E4AD21B7F51300859F8F /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
@@ -102,14 +98,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A3014BB421E8C6C600E668C6 /* AlarmMusic */ = {
-			isa = PBXGroup;
-			children = (
-				A3014BB521E8C6C600E668C6 /* receipt01.mp3 */,
-			);
-			path = AlarmMusic;
-			sourceTree = "<group>";
-		};
 		A341E49F21B7F51300859F8F = {
 			isa = PBXGroup;
 			children = (
@@ -134,8 +122,6 @@
 		A341E4AA21B7F51300859F8F /* WisdomTimerBeta */ = {
 			isa = PBXGroup;
 			children = (
-				A30213A921FD6F710033FC23 /* icon.png */,
-				A3014BB421E8C6C600E668C6 /* AlarmMusic */,
 				A341E4AB21B7F51300859F8F /* AppDelegate.swift */,
 				A341E4AD21B7F51300859F8F /* MenuViewController.swift */,
 				A341E4DD21BAB70B00859F8F /* TimerViewController.swift */,
@@ -278,9 +264,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A3014BB621E8C6C600E668C6 /* receipt01.mp3 in Resources */,
 				A30213A421FC4A6E0033FC23 /* Localizable.strings in Resources */,
-				A30213AA21FD6F720033FC23 /* icon.png in Resources */,
 				A341E4B621B7F51600859F8F /* LaunchScreen.storyboard in Resources */,
 				A341E4B321B7F51600859F8F /* Assets.xcassets in Resources */,
 				A341E4B121B7F51300859F8F /* Main.storyboard in Resources */,
