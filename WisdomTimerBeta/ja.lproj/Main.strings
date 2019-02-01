@@ -12,7 +12,7 @@
 "TR9-PW-cyU.text" = "Title";
 
 /* Class = "UINavigationItem"; title = "New Timer"; ObjectID = "e6K-1i-Cx8"; */
-"e6K-1i-Cx8.title" = "タイマー";
+"e6K-1i-Cx8.title" = "新規タイマー";
 
 /* Class = "UINavigationItem"; title = "TitleName"; ObjectID = "jKA-Lx-ZD9"; */
 "jKA-Lx-ZD9.title" = "TitleName";
@@ -26,8 +26,8 @@
 /* Class = "UIButton"; normalTitle = "Done"; ObjectID = "tij-bA-hz4"; */
 "tij-bA-hz4.normalTitle" = "終了";
 
-/* Class = "UINavigationItem"; title = "Timer"; ObjectID = "uEl-oU-7km"; */
-"uEl-oU-7km.title" = "Timer";
+/* Class = "UINavigationItem"; title = "Timer List"; ObjectID = "uEl-oU-7km"; */
+"uEl-oU-7km.title" = "タイマー一覧";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "wmv-5X-Dhe"; */
 "wmv-5X-Dhe.text" = "Detail";

@@ -13,12 +13,27 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet var timerTable: UITableView!
     
     var timerArray:[TimerFile] = []
+    
+    let appdelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         timerTable.dataSource = self
         timerTable.delegate = self
+        
+        // アプリ立ち上がり時に呼ばれ、予約通知の解除とタイマーから引き算する
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(prepareForForeground),
+                                               name: UIApplication.didBecomeActiveNotification,
+                                               object: nil)
+        
+        // バックグラウンド中に通知を送るために、それぞれのタイマーの終了時刻になったら通知がなるようにセットする
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(prepareForBackground),
+                                               name: UIApplication.willResignActiveNotification,
+                                               object: nil)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -97,6 +112,41 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let row: Int = sender as! Int
             timerViewController.timerFile = self.timerArray[row]
         }
+    }
+    
+    // バックグラウンド中にタイマーが終了した時に通知を送るという予約の解除
+    // タイマーのセーブ
+    @objc func prepareForForeground() {
+        // 閉じていた時間を計算し、全てのアクティブなタイマーから引き算する
+        if let interval = appdelegate.timeDatabase.object(forKey: "intervalTime") {
+            
+            for timerFile in timerArray {
+                print(timerFile.currentWholeSecond, timerFile.savedSecond)
+                if !timerFile.isBeforeStart {
+                    
+                    timerFile.cancelNotificationTrigger()
+                    timerFile.specialRestartAction(interval: interval as! TimeInterval)
+                }
+            }
+        }
+    }
+    
+    // バックグラウンド中にタイマーが終了した時に通知を送るという予約
+    // タイマーの適応時間分前に進める
+    @objc func prepareForBackground() {
+        
+        for timerFile in timerArray {
+            if !timerFile.isBeforeStart {
+                
+                timerFile.saveTime()
+                timerFile.setNotificationTrigger()
+            }
+        }
+    }
+    
+    // バックグラウンド中にタイマーが終了した時に通知を送るという予約の解除
+    func cancelNotificationsTrigger() {
+        // 未使用
     }
 
 }

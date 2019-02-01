@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Timer-->
+        <!--Timer List-->
         <scene sceneID="lUZ-bM-nGS">
             <objects>
                 <viewController id="sGi-P9-RpQ" customClass="MenuViewController" customModule="WisdomTimerBeta" customModuleProvider="target" sceneMemberID="viewController">
@@ -42,7 +42,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ztb-hn-EFK"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Timer" id="uEl-oU-7km">
+                    <navigationItem key="navigationItem" title="Timer List" id="uEl-oU-7km">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="tzC-5J-JGy">
                             <connections>
                                 <action selector="tapAddButton" destination="sGi-P9-RpQ" id="YHH-uN-ZyM"/>

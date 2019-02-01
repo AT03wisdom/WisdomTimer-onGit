@@ -13,6 +13,8 @@ import UserNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
+    
+    var timeDatabase = UserDefaults.standard
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -50,6 +52,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+        
+        timeDatabase.set(Date(), forKey: "closedTime")
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -63,6 +67,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
+        if let closedTime = timeDatabase.object(forKey: "closedTime") {
+            let openedTime = Date()
+            timeDatabase.set(openedTime, forKey: "openedTime")
+            let intervalTime = openedTime.timeIntervalSince(closedTime as! Date)
+            print("intervalTime : \(intervalTime)")
+            timeDatabase.set(intervalTime, forKey: "intervalTime")
+        }
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

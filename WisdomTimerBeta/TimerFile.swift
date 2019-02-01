@@ -17,13 +17,16 @@ class TimerFile {
     var delegate: TimerViewProtocols?
     
     // 分も時も一つにまとめた秒数 （変化する）
-    var currentWholeSecond: Float!
+    var currentWholeSecond: Double!
     
     // 分も時も一つにまとめた秒数 （最初からある）
-    var initialWholeSecond: Float!
+    var initialWholeSecond: Double!
     
     // Pauseボタンが押された時に、保存します
-    var pauseWholeSecond: Float!
+    var pauseWholeSecond: Double!
+    
+    // バックグラウンドに入る時に表示される秒数
+    var savedSecond: Double!
     
     // 10, 60まで来ると繰り上がるタイプの秒分時(Limited Time), デシ秒
     var limitedDeciSecond: Int!
@@ -62,8 +65,8 @@ class TimerFile {
         self.limitedHour = hour
         
         let wholeS = second + (minute * 60) + (hour * 3600)
-        self.currentWholeSecond = Float(wholeS)
-        self.initialWholeSecond = Float(wholeS)
+        self.currentWholeSecond = Double(wholeS)
+        self.initialWholeSecond = Double(wholeS)
         
         isDeciSecond = false
         isBeforeStart = true
@@ -77,12 +80,12 @@ class TimerFile {
         notificationPlayer = setNotificationPlayer(fileName: bothFileName)
     }
     
-    init(wholeSecond: Float) {
+    init(wholeSecond: Double) {
         // WholeTimeからのイニシャライザ
         reflectLimitedTime(time: wholeSecond)
         
-        self.currentWholeSecond = Float(wholeSecond)
-        self.initialWholeSecond = Float(wholeSecond)
+        self.currentWholeSecond = Double(wholeSecond)
+        self.initialWholeSecond = Double(wholeSecond)
         
         reflectTimeText(second: self.limitedSecond, minute: self.limitedMinute, hour: self.limitedHour)
         
@@ -96,12 +99,12 @@ class TimerFile {
         notificationPlayer = setNotificationPlayer(fileName: bothFileName)
     }
     
-    func increase(sec: Float) {
+    func increase(sec: Double) {
         self.currentWholeSecond += sec
         
         reflectLimitedTime(time: self.currentWholeSecond)
     }
-    func decrease(sec: Float) {
+    func decrease(sec: Double) {
         self.currentWholeSecond -= sec
         
         reflectLimitedTime(time: self.currentWholeSecond)
@@ -118,7 +121,7 @@ class TimerFile {
                             minute: self.limitedMinute,
                             hour: self.limitedHour)
         } else {
-            let secPointDeciSecond: Float = Float(self.limitedSecond) + Float(self.limitedDeciSecond)/10
+            let secPointDeciSecond: Double = Double(self.limitedSecond) + Double(self.limitedDeciSecond)/10
             reflectTimeText(second: secPointDeciSecond, minute: self.limitedMinute, hour: self.limitedHour)
         }
         
@@ -126,9 +129,11 @@ class TimerFile {
             // タイマー終了時
             timer.invalidate()
             
-            delegate?.reflectButtonStyle(tag: "Done")
-            
             self.isBeforeStart = true
+            
+            if UIApplication.shared.applicationState == .background {
+                self.cancelNotificationTrigger()
+            }
             
             DispatchQueue.main.asyncAfter( deadline: .now() + 0.2 ) {
                 //処理
@@ -140,7 +145,7 @@ class TimerFile {
                 }
                 
                 if self.isNotification {
-                    self.notificationAction()
+                    self.notificationAction(timeLimit: 0)
                 }
                 
                 self.alarmAudioPlayer.play()
@@ -148,13 +153,13 @@ class TimerFile {
         }
     }
     
-    func reflectLimitedTime(time: Float) {
+    func reflectLimitedTime(time: Double) {
         // wholeSecond を Limited Time群に反映する
         
         // Intにして値を繰り下げる
         let wholeSecondInt: Int = Int(time)
         
-        self.limitedDeciSecond = Int( (time - Float(wholeSecondInt)) * 10 )
+        self.limitedDeciSecond = Int( (time - Double(wholeSecondInt)) * 10 )
         self.limitedSecond = wholeSecondInt % 60
         self.limitedMinute = (wholeSecondInt % 3600) / 60
         self.limitedHour = wholeSecondInt / 3600
@@ -175,11 +180,11 @@ class TimerFile {
         }
     }
     
-    func reflectTimeText(second: Float, minute: Int, hour: Int) {
+    func reflectTimeText(second: Double, minute: Int, hour: Int) {
         
         //  テキストに表示（デシ秒非対応）
         
-        let mixedSecond: Int = Int(ceilf(second))
+        let mixedSecond: Int = Int(ceil(second))
         
         var hourString: String = String(hour)
         var minuteString: String = String(minute)
@@ -308,6 +313,9 @@ class TimerFile {
         }
     }
     
+    // ボタンプッシュ時の関数
+    // 4種
+    
     func startAction() {
         // restartボタンが押された時 (Start)
         
@@ -350,7 +358,6 @@ class TimerFile {
         self.currentWholeSecond = self.pauseWholeSecond
         reflectLimitedTime(time: self.currentWholeSecond)
         reflectTimeText(second: self.limitedSecond, minute: self.limitedMinute, hour: self.limitedHour)
-        print(self.limitedSecond, self.limitedMinute, self.limitedHour)
         
         // timerはリスタート必至
         timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(decreaseObjc), userInfo: nil, repeats: true)
@@ -358,12 +365,50 @@ class TimerFile {
         isBeforeStart = false
     }
     
-    func notificationAction() {
+    // バックグラウンド終了・復帰時の関数
+    // 4種
+    
+    func saveTime() {
+        // バックグラウンド入る時に呼ばれる
+        // 時間の保存
+        self.savedSecond = self.currentWholeSecond
+        print("saveSecond :")
+        print(self.savedSecond)
+    }
+    
+    func specialRestartAction(interval: TimeInterval) {
+        
+        print(interval, self.savedSecond)
+        // アプリバックグラウンド復帰時その時間で再開
+        
+        // 時間・表示をバックグラウンド入る前に戻す
+        self.currentWholeSecond = self.savedSecond - interval
+        reflectLimitedTime(time: self.currentWholeSecond)
+        reflectTimeText(second: self.limitedSecond, minute: self.limitedMinute, hour: self.limitedHour)
+//        print("specialRestartTime :")
+//        print(self.limitedSecond, self.limitedMinute, self.limitedHour)
+        
+        // timerはリスタート必至
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(decreaseObjc), userInfo: nil, repeats: true)
+        
+        isBeforeStart = false
+    }
+    
+    func setNotificationTrigger() {
+        // 通知を予約する
+        self.notificationAction(timeLimit: self.currentWholeSecond)
+    }
+    
+    func cancelNotificationTrigger() {
+        // 通知を解除する
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [self.title])
+    }
+    
+    func notificationAction(timeLimit: Double) {
         // 通知する
         
         // すぐに一度だけ通知（発火）
-        let trigger: UNTimeIntervalNotificationTrigger = UNTimeIntervalNotificationTrigger(timeInterval: 0, repeats: false)
-        
+        let trigger: UNTimeIntervalNotificationTrigger = UNTimeIntervalNotificationTrigger(timeInterval: timeLimit + 0.5, repeats: false)
         // 通知の中身
         let content = UNMutableNotificationContent()
         content.title = self.title
@@ -371,7 +416,7 @@ class TimerFile {
         content.sound = self.notificationPlayer
         
         // 通知を送信
-        let request = UNNotificationRequest(identifier: "uuid", content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: self.title, content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request) { (error: Error?) in
             if let error = error {
                 print("Failed to add request")
