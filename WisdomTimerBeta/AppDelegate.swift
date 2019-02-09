@@ -69,6 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         
         if let closedTime = timeDatabase.object(forKey: "closedTime") {
+            // アプリ中断時と再開時の時間の差分を求める
             let openedTime = Date()
             timeDatabase.set(openedTime, forKey: "openedTime")
             let intervalTime = openedTime.timeIntervalSince(closedTime as! Date)
