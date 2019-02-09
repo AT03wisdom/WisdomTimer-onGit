@@ -193,4 +193,7 @@ https://www.timetimer.com/
 
 ## Special Thanks
 Life is Tech!
+<<<<<<< HEAD
 
+=======
+>>>>>>> c9b2e40d77b14d0d939237263280d6a765e2ae1d
