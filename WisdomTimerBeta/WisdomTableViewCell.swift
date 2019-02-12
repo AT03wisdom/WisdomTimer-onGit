@@ -33,6 +33,10 @@ class WisdomTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
         super.awakeFromNib()
         // Initialization code
         
+        // （枠などレイアウトの）制約更新を実行
+        timePicker.setNeedsLayout()
+        timePicker.layoutIfNeeded()
+        
         // 選択部分のX座標
         if appOrientation == .landscapeLeft || appOrientation == .landscapeRight {
             monitorWidth = UIScreen.main.bounds.width - 250
@@ -40,30 +44,19 @@ class WisdomTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
             monitorWidth = UIScreen.main.bounds.width - 40
         }
         
-        // 選択部分のY座標
-        if appOrientation == .landscapeLeft || appOrientation == .landscapeRight {
-            monitorHeightRatio = (UIScreen.main.bounds.height - 220) / UIScreen.main.bounds.height
-        } else {
-            monitorHeightRatio = (UIScreen.main.bounds.height - 220) / UIScreen.main.bounds.height
-        }
-        
-        let center_y = timePicker.center.y // * monitorHeightRatio
-        print(center_y, UIScreen.main.bounds.height)
-        
         // デリゲートを使えるようにするおきまりのあれ
         
         timePicker.dataSource = self
         timePicker.delegate = self
         timePicker.backgroundColor = UIColor(red: 0, green: 0, blue: 1, alpha: 0.3)
         
-        print("timepickerbounds : \(timePicker.bounds)")
-        
         // 時データ
         hourLabel = UILabel()
         hourLabel.text = NSLocalizedString("hour", comment: "")
         hourLabel.sizeToFit()
         hourLabel.backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.3)
-        hourLabel.frame = CGRect(x: monitorWidth/4 - hourLabel.bounds.width/2, y: center_y, width: hourLabel.bounds.width, height: hourLabel.bounds.height)
+        hourLabel.frame = CGRect(x: monitorWidth/4 - hourLabel.bounds.width/2, y: timePicker.frame.height/2 - hourLabel.bounds.height/2, width: hourLabel.bounds.width, height: hourLabel.bounds.height)
+        
         timePicker.addSubview(hourLabel)
         
         // 分データ
@@ -71,7 +64,8 @@ class WisdomTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
         minuteLabel.text = NSLocalizedString("min", comment: "")
         minuteLabel.sizeToFit()
         minuteLabel.backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.3)
-        minuteLabel.frame = CGRect(x: monitorWidth/4*2 - minuteLabel.bounds.width/2, y: center_y + minuteLabel.font.pointSize/2, width: minuteLabel.bounds.width, height: minuteLabel.bounds.height)
+        minuteLabel.frame = CGRect(x: monitorWidth/4*2 - minuteLabel.bounds.width/2, y: timePicker.frame.height/2 - minuteLabel.bounds.height/2, width: minuteLabel.bounds.width, height: minuteLabel.bounds.height)
+        
         timePicker.addSubview(minuteLabel)
         
         // 秒データ
@@ -79,7 +73,8 @@ class WisdomTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
         secondLabel.text = NSLocalizedString("sec", comment: "")
         secondLabel.sizeToFit()
         secondLabel.backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.3)
-        secondLabel.frame = CGRect(x: monitorWidth/4*3 - secondLabel.bounds.width/2, y: timePicker.bounds.height/2 - secondLabel.bounds.height/2, width: secondLabel.bounds.width, height: secondLabel.bounds.height)
+        secondLabel.frame = CGRect(x: monitorWidth/4*3 - secondLabel.bounds.width/2, y: timePicker.frame.height/2 - secondLabel.bounds.height/2, width: secondLabel.bounds.width, height: secondLabel.bounds.height)
+        
         timePicker.addSubview(secondLabel)
     }
     
