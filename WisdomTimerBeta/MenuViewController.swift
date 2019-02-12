@@ -41,6 +41,17 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewWillAppear(true)
     }
     
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        get {
+            // monitorの処理が大変なため、iPhoneではMenuViewを縦向きに固定する。
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                return UIInterfaceOrientationMask.all
+            } else {
+                return UIInterfaceOrientationMask.portrait
+            }
+        }
+    }
+    
     func updateTableView() {
         self.timerTable.reloadData()
     }
@@ -117,6 +128,9 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // バックグラウンド中にタイマーが終了した時に通知を送るという予約の解除
     // タイマーのセーブ
     @objc func prepareForForeground() {
+        
+        print("foreground")
+        
         // 閉じていた時間を計算し、全てのアクティブなタイマーから引き算する
         if let interval = appdelegate.timeDatabase.object(forKey: "intervalTime") {
             
@@ -134,6 +148,8 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // バックグラウンド中にタイマーが終了した時に通知を送るという予約
     // タイマーの適応時間分前に進める
     @objc func prepareForBackground() {
+        
+        print("backGournd")
         
         for timerFile in timerArray {
             if !timerFile.isBeforeStart {

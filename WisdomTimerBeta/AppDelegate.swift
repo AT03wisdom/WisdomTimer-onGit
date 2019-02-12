@@ -99,3 +99,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
 }
 
+extension UINavigationController {
+    open override var shouldAutorotate: Bool {
+        guard let viewController = self.visibleViewController else { return true }
+        return viewController.shouldAutorotate
+    }
+    
+    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        guard let viewController = self.visibleViewController else { return .all }
+        return viewController.supportedInterfaceOrientations
+    }
+}
+

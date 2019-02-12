@@ -148,7 +148,8 @@ class TimerFile {
                     self.notificationAction(timeLimit: 0)
                 }
                 
-                self.alarmAudioPlayer.play()
+                //                self.alarmAudioPlayer.play()
+                AudioServicesPlaySystemSound(1007)
             }
         }
     }
@@ -374,6 +375,9 @@ class TimerFile {
         self.savedSecond = self.currentWholeSecond
         print("saveSecond :")
         print(self.savedSecond)
+        
+        timer.invalidate()
+        
     }
     
     func specialRestartAction(interval: TimeInterval) {
@@ -385,8 +389,8 @@ class TimerFile {
         self.currentWholeSecond = self.savedSecond - interval
         reflectLimitedTime(time: self.currentWholeSecond)
         reflectTimeText(second: self.limitedSecond, minute: self.limitedMinute, hour: self.limitedHour)
-//        print("specialRestartTime :")
-//        print(self.limitedSecond, self.limitedMinute, self.limitedHour)
+        //        print("specialRestartTime :")
+        //        print(self.limitedSecond, self.limitedMinute, self.limitedHour)
         
         // timerはリスタート必至
         timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(decreaseObjc), userInfo: nil, repeats: true)

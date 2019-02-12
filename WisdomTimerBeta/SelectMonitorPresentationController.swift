@@ -52,10 +52,18 @@ class SelectMonitorPresentationController: UIPresentationController {
     
     // 子のコンテナのサイズを返す
     // margin: どのくらい余白を作るか
-    let margin = (x: CGFloat(30), y: CGFloat(220.0))
+    
+    let appOrientation: UIInterfaceOrientation = UIApplication.shared.statusBarOrientation
+    var margin = (x: CGFloat(40), y: CGFloat(220.0))
+    
     func sizeForChildContainer(container: UIContentContainer, withParentContainerSize parentSize: CGSize) -> CGSize {
-            // iPhoneのモーダルビュー
-            return CGSize(width: parentSize.width - margin.x, height: parentSize.height - margin.y)
+        
+        if appOrientation == .landscapeLeft || appOrientation == .landscapeRight {
+            margin = (x: CGFloat(250), y: CGFloat(40))
+        }
+        
+        // iPhoneのモーダルビュー
+        return CGSize(width: parentSize.width - margin.x, height: parentSize.height - margin.y)
     }
     
     // 呼び出し先の View Controller の Frame を返す
@@ -90,5 +98,5 @@ class SelectMonitorPresentationController: UIPresentationController {
     @objc func escape(_ sender: UITapGestureRecognizer) {
         presentedViewController.dismiss(animated: true, completion: nil)
     }
-
+    
 }

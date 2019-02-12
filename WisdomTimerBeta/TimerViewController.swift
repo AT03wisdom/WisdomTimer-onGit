@@ -12,29 +12,29 @@ class TimerViewController: UIViewController, TimerViewProtocols {
     
     var timerFile: TimerFile!
     
-//    let device: UIDevice = UIDevice.current
-//    let screen: UIScreen = UIScreen.main
+    //    let device: UIDevice = UIDevice.current
+    //    let screen: UIScreen = UIScreen.main
     
     @IBOutlet var titleLabel: UINavigationItem!
     @IBOutlet var timeLabel: UILabel!
     
     @IBOutlet var doneButton: UIButton!
     @IBOutlet var restartButton: UIButton!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         titleLabel.title = timerFile.title
         timeLabel.text = timerFile.passageForTimerLabel
         
         timerFile.delegate = self
         
-//        doneButton.placeButton(device: device, screen: screen, buttonType: 2)
-//        restartButton.placeButton(device: device, screen: screen, buttonType: 1)
-//
-//        print(doneButton.frame.origin.x)
-//        print((doneButton.frame.width, doneButton.frame.height))
+        //        doneButton.placeButton(device: device, screen: screen, buttonType: 2)
+        //        restartButton.placeButton(device: device, screen: screen, buttonType: 1)
+        //
+        //        print(doneButton.frame.origin.x)
+        //        print((doneButton.frame.width, doneButton.frame.height))
         
         if timerFile.timer.isValid {
             // タイマーが動いている時
@@ -47,10 +47,26 @@ class TimerViewController: UIViewController, TimerViewProtocols {
         }
         
         restartButton.layer.cornerRadius = 10
+        restartButton.titleLabel?.font = UIFont.systemFont(ofSize: 0.045 * self.view.bounds.height)
         
         doneButton.layer.cornerRadius = 10
+        doneButton.titleLabel?.font = UIFont.systemFont(ofSize: 0.045 * self.view.bounds.height)
         doneButton.setTitleColor(UIColor(red: 0.1, green: 0.2, blue: 0.9, alpha: 1.0), for: .normal)
         
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(changeRotateAction),
+                                               name: UIDevice.orientationDidChangeNotification,
+                                               object: nil)
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        changeRotateAction()
+    }
+    
+    @objc func changeRotateAction() {
+        restartButton.titleLabel?.font = UIFont.systemFont(ofSize: 0.045 * self.view.bounds.height)
+        doneButton.titleLabel?.font = UIFont.systemFont(ofSize: 0.045 * self.view.bounds.height)
     }
     
     @IBAction func onDoneButton() {
@@ -109,5 +125,5 @@ class TimerViewController: UIViewController, TimerViewProtocols {
     }
     
     // Delegate ここまで
-
+    
 }

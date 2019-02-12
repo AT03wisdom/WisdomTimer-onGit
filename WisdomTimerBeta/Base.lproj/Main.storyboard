@@ -72,10 +72,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sSi-yI-bQe">
-                                <rect key="frame" x="79" y="352" width="163" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sSi-yI-bQe">
+                                <rect key="frame" x="125.5" y="638" width="163" height="63"/>
                                 <color key="backgroundColor" red="0.89493445303234354" green="0.89493445303234354" blue="0.89493445303234354" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="163" id="imt-Xb-OZi"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <state key="normal" title="Pause">
                                     <color key="titleColor" red="0.0" green="0.87843137250000003" blue="0.38065359479999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -84,10 +86,12 @@
                                     <action selector="onRestartButton" destination="Azf-lb-iDM" eventType="touchUpInside" id="BDo-84-Ntf"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tij-bA-hz4">
-                                <rect key="frame" x="79" y="430" width="163" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tij-bA-hz4">
+                                <rect key="frame" x="125.5" y="729.5" width="163" height="62.5"/>
                                 <color key="backgroundColor" red="0.84678378807106602" green="0.84678378807106602" blue="0.84678378807106602" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="163" id="zjo-7n-SVi"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <state key="normal" title="Done">
                                     <color key="titleColor" red="0.13151350989128394" green="0.18763725697887917" blue="0.74244527284263961" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -99,9 +103,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="tij-bA-hz4" firstAttribute="top" secondItem="sSi-yI-bQe" secondAttribute="bottom" constant="28.5" id="0pb-Am-nNX"/>
                             <constraint firstItem="LNY-BE-7TQ" firstAttribute="trailing" secondItem="CjQ-a2-3GB" secondAttribute="trailing" constant="47" id="6MM-Rk-OFo"/>
                             <constraint firstItem="CjQ-a2-3GB" firstAttribute="leading" secondItem="LNY-BE-7TQ" secondAttribute="leading" constant="47" id="BZZ-ct-TUZ"/>
+                            <constraint firstItem="tij-bA-hz4" firstAttribute="centerX" secondItem="bdT-8j-bHh" secondAttribute="centerX" id="Vda-Gd-rMu"/>
+                            <constraint firstItem="sSi-yI-bQe" firstAttribute="height" secondItem="bdT-8j-bHh" secondAttribute="height" multiplier="0.07" id="ijE-vJ-hPR"/>
+                            <constraint firstItem="sSi-yI-bQe" firstAttribute="centerX" secondItem="bdT-8j-bHh" secondAttribute="centerX" id="krW-qy-xbJ"/>
+                            <constraint firstItem="tij-bA-hz4" firstAttribute="height" secondItem="bdT-8j-bHh" secondAttribute="height" multiplier="0.07" id="pMM-pX-QZE"/>
                             <constraint firstItem="CjQ-a2-3GB" firstAttribute="top" secondItem="LNY-BE-7TQ" secondAttribute="top" constant="30" id="peV-tI-V79"/>
+                            <constraint firstItem="LNY-BE-7TQ" firstAttribute="bottom" secondItem="tij-bA-hz4" secondAttribute="bottom" constant="70" id="ted-2t-xgg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="LNY-BE-7TQ"/>
                     </view>

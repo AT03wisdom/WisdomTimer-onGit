@@ -17,43 +17,75 @@ class WisdomTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
     var limitedMinute: Int = 0
     var limitedHour: Int = 0
     
+    var hourLabel: UILabel!
+    var minuteLabel: UILabel!
+    var secondLabel: UILabel!
+    
+    var monitorWidth: CGFloat!
+    var monitorHeightRatio: CGFloat!
+    
+    let appOrientation: UIInterfaceOrientation = UIApplication.shared.statusBarOrientation
+    
     // UIPickerViewなどのOutletは、UITableViewCellに直接挿入できないので新しいクラスで定義
     @IBOutlet var timePicker: UIPickerView!
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        // 選択部分のX座標
+        if appOrientation == .landscapeLeft || appOrientation == .landscapeRight {
+            monitorWidth = UIScreen.main.bounds.width - 250
+        } else {
+            monitorWidth = UIScreen.main.bounds.width - 40
+        }
+        
+        // 選択部分のY座標
+        if appOrientation == .landscapeLeft || appOrientation == .landscapeRight {
+            monitorHeightRatio = (UIScreen.main.bounds.height - 220) / UIScreen.main.bounds.height
+        } else {
+            monitorHeightRatio = (UIScreen.main.bounds.height - 220) / UIScreen.main.bounds.height
+        }
+        
+        let center_y = timePicker.center.y // * monitorHeightRatio
+        print(center_y, UIScreen.main.bounds.height)
         
         // デリゲートを使えるようにするおきまりのあれ
         
         timePicker.dataSource = self
         timePicker.delegate = self
+        timePicker.backgroundColor = UIColor(red: 0, green: 0, blue: 1, alpha: 0.3)
+        
+        print("timepickerbounds : \(timePicker.bounds)")
         
         // 時データ
-        let hourLabel = UILabel()
-        hourLabel.text = "hour"
+        hourLabel = UILabel()
+        hourLabel.text = NSLocalizedString("hour", comment: "")
         hourLabel.sizeToFit()
-        hourLabel.frame = CGRect(x: timePicker.bounds.width/4 - hourLabel.bounds.width/2, y: timePicker.bounds.height/2 - hourLabel.bounds.height, width: hourLabel.bounds.width, height: hourLabel.bounds.height)
+        hourLabel.backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.3)
+        hourLabel.frame = CGRect(x: monitorWidth/4 - hourLabel.bounds.width/2, y: center_y, width: hourLabel.bounds.width, height: hourLabel.bounds.height)
         timePicker.addSubview(hourLabel)
         
         // 分データ
-        let minuteLabel = UILabel()
-        minuteLabel.text = "minute"
+        minuteLabel = UILabel()
+        minuteLabel.text = NSLocalizedString("min", comment: "")
         minuteLabel.sizeToFit()
-        minuteLabel.frame = CGRect(x: timePicker.bounds.width/4*2 - minuteLabel.bounds.width/2, y: timePicker.bounds.height/2 - minuteLabel.bounds.height, width: minuteLabel.bounds.width, height: minuteLabel.bounds.height)
+        minuteLabel.backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.3)
+        minuteLabel.frame = CGRect(x: monitorWidth/4*2 - minuteLabel.bounds.width/2, y: center_y + minuteLabel.font.pointSize/2, width: minuteLabel.bounds.width, height: minuteLabel.bounds.height)
         timePicker.addSubview(minuteLabel)
         
         // 秒データ
-        let secondLabel = UILabel()
-        secondLabel.text = "second"
+        secondLabel = UILabel()
+        secondLabel.text = NSLocalizedString("sec", comment: "")
         secondLabel.sizeToFit()
-        secondLabel.frame = CGRect(x: timePicker.bounds.width/4*3 - secondLabel.bounds.width/2, y: timePicker.bounds.height/2 - secondLabel.bounds.height, width: secondLabel.bounds.width, height: secondLabel.bounds.height)
+        secondLabel.backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.3)
+        secondLabel.frame = CGRect(x: monitorWidth/4*3 - secondLabel.bounds.width/2, y: timePicker.bounds.height/2 - secondLabel.bounds.height/2, width: secondLabel.bounds.width, height: secondLabel.bounds.height)
         timePicker.addSubview(secondLabel)
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
         
     }
@@ -86,6 +118,7 @@ class WisdomTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
         // pickerViewに値を挿入
         let pickerLabel = UILabel()
         pickerLabel.textAlignment = NSTextAlignment.left
+        pickerLabel.backgroundColor = UIColor(red: 0, green: 1, blue: 0, alpha: 0.3)
         pickerLabel.text = String(timeDatas[component][row])
         
         return pickerLabel
@@ -104,5 +137,5 @@ class WisdomTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
             assert(false, "Because of confirming unknown conponent value \(component)")
         }
     }
-
+    
 }
