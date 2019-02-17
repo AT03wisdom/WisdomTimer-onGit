@@ -10,6 +10,7 @@
 		A3014BBA21EB1F7E00E668C6 /* TitleMonitorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3014BB921EB1F7E00E668C6 /* TitleMonitorViewController.swift */; };
 		A3014BBC21EB2E6400E668C6 /* TextWriterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3014BBB21EB2E6400E668C6 /* TextWriterCell.swift */; };
 		A30213A421FC4A6E0033FC23 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A30213A621FC4A6E0033FC23 /* Localizable.strings */; };
+		A30546E42219393000977D94 /* PRIVACYPOLICY.md in Resources */ = {isa = PBXBuildFile; fileRef = A30546E32219393000977D94 /* PRIVACYPOLICY.md */; };
 		A341E4AC21B7F51300859F8F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A341E4AB21B7F51300859F8F /* AppDelegate.swift */; };
 		A341E4AE21B7F51300859F8F /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A341E4AD21B7F51300859F8F /* MenuViewController.swift */; };
 		A341E4B121B7F51300859F8F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A341E4AF21B7F51300859F8F /* Main.storyboard */; };
@@ -19,6 +20,7 @@
 		A341E4CC21B7F51600859F8F /* WisdomTimerBetaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A341E4CB21B7F51600859F8F /* WisdomTimerBetaUITests.swift */; };
 		A341E4DC21B7FB3D00859F8F /* TimerFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A341E4DB21B7FB3D00859F8F /* TimerFile.swift */; };
 		A341E4DE21BAB70B00859F8F /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A341E4DD21BAB70B00859F8F /* TimerViewController.swift */; };
+		A352118F22192470006B1C18 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A352118E22192470006B1C18 /* README.md */; };
 		A363D7D721D465F400BAEC71 /* TimerViewProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A363D7D621D465F400BAEC71 /* TimerViewProtocols.swift */; };
 		A363D7D921D60BE600BAEC71 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A363D7D821D60BE600BAEC71 /* Extensions.swift */; };
 		A363D7DF21DEC56E00BAEC71 /* CustomAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = A363D7DE21DEC56E00BAEC71 /* CustomAnimatedTransitioning.swift */; };
@@ -50,6 +52,7 @@
 		A302139E21FC48810033FC23 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
 		A302139F21FC48810033FC23 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		A30213A521FC4A6E0033FC23 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A30546E32219393000977D94 /* PRIVACYPOLICY.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = PRIVACYPOLICY.md; sourceTree = "<group>"; };
 		A341E4A821B7F51300859F8F /* WisdomTimerBeta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WisdomTimerBeta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A341E4AB21B7F51300859F8F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A341E4AD21B7F51300859F8F /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
@@ -65,6 +68,7 @@
 		A341E4CD21B7F51600859F8F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A341E4DB21B7FB3D00859F8F /* TimerFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerFile.swift; sourceTree = "<group>"; };
 		A341E4DD21BAB70B00859F8F /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
+		A352118E22192470006B1C18 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A363D7D621D465F400BAEC71 /* TimerViewProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewProtocols.swift; sourceTree = "<group>"; };
 		A363D7D821D60BE600BAEC71 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		A363D7DE21DEC56E00BAEC71 /* CustomAnimatedTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAnimatedTransitioning.swift; sourceTree = "<group>"; };
@@ -101,6 +105,8 @@
 		A341E49F21B7F51300859F8F = {
 			isa = PBXGroup;
 			children = (
+				A30546E32219393000977D94 /* PRIVACYPOLICY.md */,
+				A352118E22192470006B1C18 /* README.md */,
 				A30213A621FC4A6E0033FC23 /* Localizable.strings */,
 				A341E4AA21B7F51300859F8F /* WisdomTimerBeta */,
 				A341E4BF21B7F51600859F8F /* WisdomTimerBetaTests */,
@@ -265,7 +271,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A30213A421FC4A6E0033FC23 /* Localizable.strings in Resources */,
+				A30546E42219393000977D94 /* PRIVACYPOLICY.md in Resources */,
 				A341E4B621B7F51600859F8F /* LaunchScreen.storyboard in Resources */,
+				A352118F22192470006B1C18 /* README.md in Resources */,
 				A341E4B321B7F51600859F8F /* Assets.xcassets in Resources */,
 				A341E4B121B7F51300859F8F /* Main.storyboard in Resources */,
 			);

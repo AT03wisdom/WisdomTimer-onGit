@@ -49,8 +49,18 @@ class TimerFile {
     var isVibrate: Bool!
     var howrepetation: Int!
     
-    // オリジナル・フリー音源の配列とオーディオプレーヤー
-    var musicArray: [String] = ["receipt01"]
+    // オリジナル・フリー音源のファイル名
+    var bothFileName: String! {
+        didSet {
+            alarmAudioPlayer = setSoundPlayer(fileName: bothFileName)
+            notificationPlayer = setNotificationPlayer(fileName: bothFileName)
+        }
+    }
+    
+    // オリジナル・フリー音源の配列
+    var musicArray: [String] = ["default.wav"] //  Created by 田中惇貴 on Garageband.
+    
+    // オーディオプレーヤー
     var alarmAudioPlayer: AVAudioPlayer!
     var notificationPlayer: UNNotificationSound!
     
@@ -74,10 +84,6 @@ class TimerFile {
         reflectTimeText(second: self.limitedSecond, minute: self.limitedMinute, hour: self.limitedHour)
         
         title = "New Timer A"
-        
-        let bothFileName = "receipt01"
-        alarmAudioPlayer = setSoundPlayer(fileName: bothFileName)
-        notificationPlayer = setNotificationPlayer(fileName: bothFileName)
     }
     
     init(wholeSecond: Double) {
@@ -93,10 +99,6 @@ class TimerFile {
         
         isDeciSecond = true
         isBeforeStart = true
-        
-        let bothFileName = "receipt01"
-        alarmAudioPlayer = setSoundPlayer(fileName: bothFileName)
-        notificationPlayer = setNotificationPlayer(fileName: bothFileName)
     }
     
     func increase(sec: Double) {
@@ -110,6 +112,8 @@ class TimerFile {
         reflectLimitedTime(time: self.currentWholeSecond)
     }
     
+    // TimerFile.decreaseObjc()
+    // タイマーカウント時に実行
     @objc func decreaseObjc() {
         self.currentWholeSecond -= 0.1
         
@@ -136,7 +140,7 @@ class TimerFile {
             }
             
             DispatchQueue.main.asyncAfter( deadline: .now() + 0.2 ) {
-                //処理
+                // 事後処理
                 self.doneAction()
                 self.delegate?.reflectButtonStyle(tag: "Done")
                 
@@ -148,8 +152,7 @@ class TimerFile {
                     self.notificationAction(timeLimit: 0)
                 }
                 
-                //                self.alarmAudioPlayer.play()
-                AudioServicesPlaySystemSound(1007)
+                self.alarmAudioPlayer.play()
             }
         }
     }
@@ -284,8 +287,10 @@ class TimerFile {
     }
     
     func setSoundPlayer(fileName: String) -> AVAudioPlayer? {
-        // audioPlayerの値設定、初期化時に読み込む、任意時に再生可
-        if let path = Bundle.main.path(forResource: fileName, ofType: "mp3") {
+        // audioPlayerの値設定、bothFileNameセット時に読み込む、任意時に再生可
+        let namearray = fileName.components(separatedBy: ".")
+        
+        if let path = Bundle.main.path(forResource: namearray[0], ofType: namearray[1]) {
             let soundURL = URL(fileURLWithPath: path)
             
             do {
@@ -303,8 +308,13 @@ class TimerFile {
     }
     
     func setNotificationPlayer(fileName: String) -> UNNotificationSound? {
-        if let path = Bundle.main.path(forResource: fileName, ofType: "mp3") {
+        
+        // NotificationPlayerの値設定、bothFileNameセット時に読み込む、通知時に再生可
+        let namearray = fileName.components(separatedBy: ".")
+        
+        if let path = Bundle.main.path(forResource: namearray[0], ofType: namearray[1]) {
             
+            // ただし、ofTypeがcaf, m4a出ない場合は音が流れない。デフォルトのトライトーンになる
             let audioPlayer = UNNotificationSound(named: UNNotificationSoundName(rawValue: path))
             return audioPlayer
             

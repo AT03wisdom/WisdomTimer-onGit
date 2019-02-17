@@ -48,6 +48,10 @@ class TimerViewController: UIViewController, TimerViewProtocols {
         
         restartButton.layer.cornerRadius = 10
         restartButton.titleLabel?.font = UIFont.systemFont(ofSize: 0.045 * self.view.bounds.height)
+        restartButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        restartButton.titleLabel?.minimumScaleFactor = 0.3
+        
+        drawRestartButton()
         
         doneButton.layer.cornerRadius = 10
         doneButton.titleLabel?.font = UIFont.systemFont(ofSize: 0.045 * self.view.bounds.height)
@@ -93,6 +97,13 @@ class TimerViewController: UIViewController, TimerViewProtocols {
         
     }
     
+    func drawRestartButton() {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            let paddingRect = restartButton.frame.inset(by: UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4))
+            restartButton.draw(paddingRect)
+        }
+    }
+    
     // Delegate ここから
     func showText(text: String) {
         timeLabel.text = text
@@ -122,6 +133,8 @@ class TimerViewController: UIViewController, TimerViewProtocols {
         default:
             print("\(tag)が引数に入力されました。関数は実行されません。")
         }
+        
+        drawRestartButton()
     }
     
     // Delegate ここまで

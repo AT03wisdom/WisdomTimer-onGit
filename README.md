@@ -9,11 +9,20 @@ iOS 11以上
 
 swift 4.2  Xcode 10.1
 
-Apple未申請
+Apple申請済み
 
-アプリの最新のバージョン：　（未発表）
+ダウンロードはこちらから ▼▼▼
+
+
+
+アプリの最新のバージョン：　1.0
 
 ## 使い方
+プラスボタンでタイマーを追加します。
+
+タイマーを動かすには、タイマー名をタッチしてタイマー用ページに入ってください。
+
+WisdomTimerは、バックグラウンドまたはロックされていても時間切れをお知らせします。
 
 
 ## 制作の経緯
@@ -108,11 +117,20 @@ iOS 11 or higher
 
 swift 4.2 Xcode 10.1
 
-No Apple applicant
+Already applied to Apple.
 
-The latest version of the application: (unreleased)
+Please download from here ▼▼▼
+
+
+
+The latest version of the application: 1.0
 
 ## Usage
+Plus button to add timer.
+
+Touch the timer name to show now time-limit and controll.
+
+WisdomTimer notices the time is out even if background or locked.
 
 # Background of production
 
@@ -193,6 +211,7 @@ https://www.timetimer.com/
 
 ## Special Thanks
 Life is Tech!
+
 <<<<<<< HEAD
 
 =======

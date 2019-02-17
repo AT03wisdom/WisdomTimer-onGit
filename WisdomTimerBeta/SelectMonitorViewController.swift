@@ -12,6 +12,8 @@ class SelectMonitorViewController: UITableViewController {
     
     var pickerView: UIPickerView!
     
+    let appdelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     var titleMonitorVC: TitleMonitorViewController? = nil
     
     var pickerCell: WisdomTableViewCell!
@@ -29,10 +31,10 @@ class SelectMonitorViewController: UITableViewController {
     
     // 時・分・秒のデータ
     let timeDatas = [[Int](0...23), [Int](0...59), [Int](0...59)]
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
         titleMonitorVC = storyboard?.instantiateViewController(withIdentifier: "setTitle") as? TitleMonitorViewController
@@ -56,6 +58,10 @@ class SelectMonitorViewController: UITableViewController {
         }
     }
     
+    override var shouldAutorotate: Bool {
+        get { return false }
+    }
+    
     @IBAction func cancelButtonDidTouch(sender: AnyObject) {
         // Cancelが押されたら
         self.dismiss(animated: true, completion: nil)
@@ -74,6 +80,7 @@ class SelectMonitorViewController: UITableViewController {
         newTimer.isNotification = notificationSwitch.isOn
         newTimer.isVibrate = vibrationSwitch.isOn
         newTimer.howrepetation = Int(repetationStepper.value)
+        newTimer.bothFileName = newTimer.musicArray[0]
         
         if newTimer.initialWholeSecond == 0 {
             // 秒数０、失敗、アラートビュー
@@ -104,8 +111,8 @@ class SelectMonitorViewController: UITableViewController {
         }
     }
     
-//    These are the tableView (timePicker) Settings
-//    これらはテーブルビュー(timePicker)の設定です
+    //    These are the tableView (timePicker) Settings
+    //    これらはテーブルビュー(timePicker)の設定です
     
     let sections = [NSLocalizedString("Time", comment: ""), NSLocalizedString("Basic Status", comment: ""), NSLocalizedString("Alarm and Notification", comment: "")]
     let basicCells = [NSLocalizedString("Title", comment: "")/*, NSLocalizedString("Repetation", comment: "") */]
@@ -183,6 +190,7 @@ class SelectMonitorViewController: UITableViewController {
             
             if indexPath.row == 0 {
                 // notification settings 通知設定
+                notificationSwitch.isOn = true
                 normalCell2.accessoryView = notificationSwitch
             }
             
@@ -226,8 +234,6 @@ class SelectMonitorViewController: UITableViewController {
             if tentativeTitle != nil {
                 titleMonitorVC?.recentText = tentativeTitle
             }
-        } else if segue.identifier == "i" {
-            
         }
         
     }
@@ -237,5 +243,5 @@ class SelectMonitorViewController: UITableViewController {
         let repeatTime: Int = Int(stepper.value)
         stepperCell.detailTextLabel?.text = "\(repeatTime)  "
     }
-
+    
 }
