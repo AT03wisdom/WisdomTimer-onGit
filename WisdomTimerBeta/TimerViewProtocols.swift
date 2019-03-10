@@ -16,6 +16,10 @@ protocol TimerViewProtocols {
     func reflectButtonStyle(tag: String) -> Void
 }
 
+protocol MenuViewProtocols {
+    func updateTableView() -> Void
+}
+
 protocol TimerTableDelegate {
     // MenuViewControllerが設定し、SelectMonitorViewControllerで実行される
     func updateTableView() -> Void

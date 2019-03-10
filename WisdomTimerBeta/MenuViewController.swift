@@ -8,19 +8,31 @@
 
 import UIKit
 
-class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, TimerTableDelegate {
+class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, TimerTableDelegate, MenuViewProtocols {
+    
     
     @IBOutlet var timerTable: UITableView!
     
     var timerArray:[TimerFile] = []
     
+    var timerFile: TimerFile!
+    
     let appdelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         timerTable.dataSource = self
         timerTable.delegate = self
+        timerTable.tableFooterView = UIView()
+        
+        
+        // 関係ない？？？
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            timerTable.estimatedRowHeight = 100
+        } else {
+            timerTable.estimatedRowHeight = 75
+        }
         
         // アプリ立ち上がり時に呼ばれ、予約通知の解除とタイマーから引き算する
         NotificationCenter.default.addObserver(self,
@@ -52,6 +64,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
+    // TimerViewのDelegate
     func updateTableView() {
         self.timerTable.reloadData()
     }
@@ -61,11 +74,23 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return timerArray.count
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return 100
+        } else {
+            return 75
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // コンテンツをテーブルビューに入力
         let content = tableView.dequeueReusableCell(withIdentifier: "wTimer", for: indexPath)
         
+        
         content.textLabel?.text = timerArray[indexPath.row].title
+        content.detailTextLabel?.text = timerArray[indexPath.row].subtitleForMenuLabel
+        
+        timerArray[indexPath.row].menuDelegate = self
         
         return content
     }
@@ -87,8 +112,8 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     @IBAction func tapAddButton() {
-//        let wtimer: TimerFile = TimerFile(second: 0, minute: 1, hour: 0)
-//        timerArray.append(wtimer)
+        //        let wtimer: TimerFile = TimerFile(second: 0, minute: 1, hour: 0)
+        //        timerArray.append(wtimer)
         
         // 新しいSelectMenuControllerに移ろう
         let selectMenuViewController: UINavigationController! = self.storyboard?.instantiateViewController(withIdentifier: "SelectMonitor") as? UINavigationController
@@ -132,7 +157,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         print("foreground")
         
         // 閉じていた時間を計算し、全てのアクティブなタイマーから引き算する
-        if let interval = appdelegate.timeDatabase.object(forKey: "intervalTime") {
+        if let interval = appdelegate.database.object(forKey: "intervalTime") {
             
             for timerFile in timerArray {
                 print(timerFile.currentWholeSecond, timerFile.savedSecond)
@@ -160,10 +185,5 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
-    // バックグラウンド中にタイマーが終了した時に通知を送るという予約の解除
-    func cancelNotificationsTrigger() {
-        // 未使用
-    }
-
 }
 

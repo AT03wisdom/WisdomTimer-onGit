@@ -77,10 +77,13 @@ class SelectMonitorViewController: UITableViewController {
         } else {
             newTimer.title = tentativeTitle
         }
+        
         newTimer.isNotification = notificationSwitch.isOn
         newTimer.isVibrate = vibrationSwitch.isOn
         newTimer.howrepetation = Int(repetationStepper.value)
-        newTimer.bothFileName = newTimer.musicArray[0]
+        
+        newTimer.fileName = newTimer.musicArray[0]
+        newTimer.notificFileName = newTimer.notificMusicArray[0]
         
         if newTimer.initialWholeSecond == 0 {
             // 秒数０、失敗、アラートビュー

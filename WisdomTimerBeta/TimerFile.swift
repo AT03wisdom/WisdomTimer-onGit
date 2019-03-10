@@ -16,6 +16,8 @@ class TimerFile {
     // テキストを表示させるためのプロトコル
     var delegate: TimerViewProtocols?
     
+    var menuDelegate: MenuViewProtocols?
+    
     // 分も時も一つにまとめた秒数 （変化する）
     var currentWholeSecond: Double!
     
@@ -37,6 +39,10 @@ class TimerFile {
     // title（タイマーそのものの名前）, passageForTimerLabel（タイマーの時間表示）
     var title: String!
     var passageForTimerLabel: String!
+    var subtitleForMenuLabel: String!
+    
+    // initialTimePassage （開始時間の表示） 途中変更は原則不可
+    var initialTimePassage: String!
     
     // デシ秒を使えるか
     var isDeciSecond: Bool!
@@ -44,21 +50,33 @@ class TimerFile {
     // タイマーがカウントダウンしてるか
     var isBeforeStart: Bool!
     
+    // バックグラウンドから戻ってきてすぐか
+    var isSoonAsFromBackground: Bool!
+    
     // 通知やバイブレーションなどについて
     var isNotification: Bool!
     var isVibrate: Bool!
     var howrepetation: Int!
     
     // オリジナル・フリー音源のファイル名
-    var bothFileName: String! {
+    var fileName: String! {
         didSet {
-            alarmAudioPlayer = setSoundPlayer(fileName: bothFileName)
-            notificationPlayer = setNotificationPlayer(fileName: bothFileName)
+            alarmAudioPlayer = setSoundPlayer(fileName: fileName)
+        }
+    }
+    
+    // オリジナル・フリー音源のファイル名（通知用）
+    var notificFileName: String! {
+        didSet {
+            notificationPlayer = setNotificationPlayer(fileName: notificFileName)
         }
     }
     
     // オリジナル・フリー音源の配列
     var musicArray: [String] = ["default.wav"] //  Created by 田中惇貴 on Garageband.
+    
+    // オリジナル・フリー音源の配列（通知用）（音源はmusicArrayと全く同じ）
+    var notificMusicArray: [String] = ["default.caf"]
     
     // オーディオプレーヤー
     var alarmAudioPlayer: AVAudioPlayer!
@@ -74,14 +92,18 @@ class TimerFile {
         self.limitedMinute = minute
         self.limitedHour = hour
         
+        isDeciSecond = false
+        isBeforeStart = true
+        isSoonAsFromBackground = false
+        
         let wholeS = second + (minute * 60) + (hour * 3600)
         self.currentWholeSecond = Double(wholeS)
         self.initialWholeSecond = Double(wholeS)
         
-        isDeciSecond = false
-        isBeforeStart = true
         
-        reflectTimeText(second: self.limitedSecond, minute: self.limitedMinute, hour: self.limitedHour)
+        initialTimePassage = passageOfInitialTimeText()
+        self.passageForTimerLabel = reflectTimeText(second: self.limitedSecond, minute: self.limitedMinute, hour: self.limitedHour)
+        displayTimes()
         
         title = "New Timer A"
     }
@@ -90,15 +112,18 @@ class TimerFile {
         // WholeTimeからのイニシャライザ
         reflectLimitedTime(time: wholeSecond)
         
+        isDeciSecond = true
+        isBeforeStart = true
+        isSoonAsFromBackground = false
+        
         self.currentWholeSecond = Double(wholeSecond)
         self.initialWholeSecond = Double(wholeSecond)
         
-        reflectTimeText(second: self.limitedSecond, minute: self.limitedMinute, hour: self.limitedHour)
+        initialTimePassage = passageOfInitialTimeText()
+        self.passageForTimerLabel = reflectTimeText(second: self.limitedSecond, minute: self.limitedMinute, hour: self.limitedHour)
+        displayTimes()
         
         title = "New Timer B"
-        
-        isDeciSecond = true
-        isBeforeStart = true
     }
     
     func increase(sec: Double) {
@@ -120,13 +145,15 @@ class TimerFile {
         reflectLimitedTime(time: self.currentWholeSecond)
         
         if isDeciSecond {
-            reflectTimeText(decisecond: self.limitedDeciSecond,
-                            second: self.limitedSecond,
-                            minute: self.limitedMinute,
-                            hour: self.limitedHour)
+            self.passageForTimerLabel = reflectTimeText(decisecond: self.limitedDeciSecond,
+                                                        second: self.limitedSecond,
+                                                        minute: self.limitedMinute,
+                                                        hour: self.limitedHour)
         } else {
             let secPointDeciSecond: Double = Double(self.limitedSecond) + Double(self.limitedDeciSecond)/10
-            reflectTimeText(second: secPointDeciSecond, minute: self.limitedMinute, hour: self.limitedHour)
+            self.passageForTimerLabel = reflectTimeText(second: secPointDeciSecond, minute: self.limitedMinute, hour: self.limitedHour)
+            
+            displayTimes()
         }
         
         if self.currentWholeSecond <= 0.0 {
@@ -139,7 +166,7 @@ class TimerFile {
                 self.cancelNotificationTrigger()
             }
             
-            DispatchQueue.main.asyncAfter( deadline: .now() + 0.2 ) {
+            DispatchQueue.main.asyncAfter( deadline: .now() + 0.1 ) {
                 // 事後処理
                 self.doneAction()
                 self.delegate?.reflectButtonStyle(tag: "Done")
@@ -148,12 +175,17 @@ class TimerFile {
                     AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
                 }
                 
-                if self.isNotification {
+                print("ShouldLabel : \(String(describing: self.isSoonAsFromBackground))")
+                if self.isNotification && !self.isSoonAsFromBackground {
                     self.notificationAction(timeLimit: 0)
                 }
                 
-                self.alarmAudioPlayer.play()
+                if !self.isSoonAsFromBackground {
+                    self.alarmAudioPlayer.play()
+                }
             }
+        } else {
+            self.isSoonAsFromBackground = false
         }
     }
     
@@ -184,7 +216,7 @@ class TimerFile {
         }
     }
     
-    func reflectTimeText(second: Double, minute: Int, hour: Int) {
+    func reflectTimeText(second: Double, minute: Int, hour: Int) -> String {
         
         //  テキストに表示（デシ秒非対応）
         
@@ -206,12 +238,10 @@ class TimerFile {
         
         // テキストに表示（TimerViewへはデリゲートを使う）
         let passage: String = "\(hourString):\(minuteString):\(secondString)"
-        self.passageForTimerLabel = passage
-        
-        delegate?.showText(text: passage)
+        return passage
     }
     
-    func reflectTimeText(second: Int, minute: Int, hour: Int) {
+    func reflectTimeText(second: Int, minute: Int, hour: Int) -> String {
         
         //  テキストに表示（デシ秒非対応）
         var hourString: String = "0"
@@ -254,17 +284,15 @@ class TimerFile {
         } else {
             passage = "\(hourString):\(minuteString):\(secondString)"
         }
-        self.passageForTimerLabel = passage
-        
-        delegate?.showText(text: passage)
+        return passage
     }
     
-    func reflectTimeText(decisecond: Int, second: Int, minute: Int, hour: Int) {
+    func reflectTimeText(decisecond: Int, second: Int, minute: Int, hour: Int) -> String {
         //  テキストに表示（デシ秒対応）
         var hourString: String = String(hour)
         var minuteString: String = String(minute)
         var secondString: String = String(second)
-        var decisecondString: String = String(decisecond)
+        let decisecondString: String = String(decisecond)
         
         if hour < 10 {
             hourString = "0" + hourString
@@ -275,16 +303,85 @@ class TimerFile {
         if second < 10 {
             secondString = "0" + secondString
         }
-        if decisecond < 10 {
-            decisecondString = "0" + decisecondString
-        }
         
         // テキストに表示（TimerViewへはデリゲートを使う）
         let passage: String = "\(hourString):\(minuteString):\(secondString):\(decisecondString)"
-        self.passageForTimerLabel = passage
-        
-        delegate?.showText(text: passage)
+        return passage
     }
+    
+    func displayTimes() {
+        // よくディスプレイで表示する時に使うコマンドをまとめた関数。
+        
+        delegate?.showText(text: self.passageForTimerLabel)
+        
+        // Optionalを外す
+        guard let current = self.passageForTimerLabel else { return }
+        guard let initial = self.initialTimePassage else { return }
+        
+        let passageOfMenuTimer: String = "\(current) / \(initial)"
+        self.subtitleForMenuLabel = passageOfMenuTimer
+        
+        menuDelegate?.updateTableView()
+    }
+    
+    // InitialWholeSecondを設定（作る）
+    
+    private func passageOfInitialTimeText() -> String {
+        
+        // Step1. initialSecond を Limited Time群に反映する
+        
+        // Intにして値を繰り下げる
+        let wholeSecondInt: Int = Int(self.initialWholeSecond)
+        
+        var initialDeciSecond = Int( (self.initialWholeSecond - Double(wholeSecondInt)) * 10 )
+        var initialSecond = wholeSecondInt % 60
+        var initialMinute = (wholeSecondInt % 3600) / 60
+        var initialHour = wholeSecondInt / 3600
+        
+        // Step2. 時間に応じて秒・分・時を繰り上げる
+        
+        if !self.isDeciSecond && initialSecond == 59 && initialDeciSecond != 0 {
+            initialDeciSecond = 0
+            initialSecond += 1
+        }
+        
+        if initialSecond == 60 {
+            initialSecond = 0
+            initialMinute += 1
+        }
+        
+        if initialMinute == 60 {
+            initialMinute = 0
+            initialHour += 1
+        }
+        
+        // Step3. 文字列変数を追加
+        var hourString: String = String(initialHour)
+        var minuteString: String = String(initialMinute)
+        var secondString: String = String(initialSecond)
+        let decisecondString: String = String(initialDeciSecond)
+        
+        // Step4. 1桁なら0を追加する
+        if initialHour < 10 {
+            hourString = "0" + hourString
+        }
+        if initialMinute < 10 {
+            minuteString = "0" + minuteString
+        }
+        if initialSecond < 10 {
+            secondString = "0" + secondString
+        }
+        
+        // Step5. 文字列を返す
+        
+        if self.isDeciSecond {
+            return "\(hourString):\(minuteString):\(secondString):\(decisecondString)"
+        } else {
+            return "\(hourString):\(minuteString):\(secondString)"
+        }
+    }
+    
+    // 音の設定
     
     func setSoundPlayer(fileName: String) -> AVAudioPlayer? {
         // audioPlayerの値設定、bothFileNameセット時に読み込む、任意時に再生可
@@ -333,6 +430,7 @@ class TimerFile {
         timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(decreaseObjc), userInfo: nil, repeats: true)
         
         isBeforeStart = false
+        self.isSoonAsFromBackground = false
     }
     
     func doneAction() {
@@ -344,7 +442,9 @@ class TimerFile {
         // 時間・表示をinit時に戻す
         self.currentWholeSecond = self.initialWholeSecond
         reflectLimitedTime(time: self.initialWholeSecond)
-        reflectTimeText(second: self.limitedSecond, minute: self.limitedMinute, hour: self.limitedHour)
+        self.passageForTimerLabel = reflectTimeText(second: self.limitedSecond, minute: self.limitedMinute, hour: self.limitedHour)
+        
+        displayTimes()
         
         self.pauseWholeSecond = self.initialWholeSecond
         
@@ -360,6 +460,7 @@ class TimerFile {
         timer.invalidate()
         
         isBeforeStart = false
+        self.isSoonAsFromBackground = false
     }
     
     func restartAction() {
@@ -368,12 +469,15 @@ class TimerFile {
         // 時間・表示をpause時に戻す
         self.currentWholeSecond = self.pauseWholeSecond
         reflectLimitedTime(time: self.currentWholeSecond)
-        reflectTimeText(second: self.limitedSecond, minute: self.limitedMinute, hour: self.limitedHour)
+        self.passageForTimerLabel = reflectTimeText(second: self.limitedSecond, minute: self.limitedMinute, hour: self.limitedHour)
+        
+        displayTimes()
         
         // timerはリスタート必至
         timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(decreaseObjc), userInfo: nil, repeats: true)
         
         isBeforeStart = false
+        self.isSoonAsFromBackground = false
     }
     
     // バックグラウンド終了・復帰時の関数
@@ -383,8 +487,7 @@ class TimerFile {
         // バックグラウンド入る時に呼ばれる
         // 時間の保存
         self.savedSecond = self.currentWholeSecond
-        print("saveSecond :")
-        print(self.savedSecond)
+        print("saveSecond : \(String(describing: self.savedSecond))")
         
         timer.invalidate()
         
@@ -393,19 +496,22 @@ class TimerFile {
     func specialRestartAction(interval: TimeInterval) {
         
         print(interval, self.savedSecond)
+        self.isSoonAsFromBackground = true
         // アプリバックグラウンド復帰時その時間で再開
         
         // 時間・表示をバックグラウンド入る前に戻す
         self.currentWholeSecond = self.savedSecond - interval
         reflectLimitedTime(time: self.currentWholeSecond)
-        reflectTimeText(second: self.limitedSecond, minute: self.limitedMinute, hour: self.limitedHour)
+        self.passageForTimerLabel = reflectTimeText(second: self.limitedSecond, minute: self.limitedMinute, hour: self.limitedHour)
+        
+        displayTimes()
         //        print("specialRestartTime :")
         //        print(self.limitedSecond, self.limitedMinute, self.limitedHour)
         
         // timerはリスタート必至
-        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(decreaseObjc), userInfo: nil, repeats: true)
-        
         isBeforeStart = false
+        
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(decreaseObjc), userInfo: nil, repeats: true)
     }
     
     func setNotificationTrigger() {
@@ -415,6 +521,7 @@ class TimerFile {
     
     func cancelNotificationTrigger() {
         // 通知を解除する
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [self.title])
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [self.title])
     }
     
@@ -426,7 +533,7 @@ class TimerFile {
         // 通知の中身
         let content = UNMutableNotificationContent()
         content.title = self.title
-        content.body = "タイマーが終了しました。"
+        content.body = NSLocalizedString("Timer is Finished.", comment: "")
         content.sound = self.notificationPlayer
         
         // 通知を送信

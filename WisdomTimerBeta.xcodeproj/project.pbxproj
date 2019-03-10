@@ -27,6 +27,7 @@
 		A363D7E321DF5F4D00BAEC71 /* SelectMonitorPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A363D7E221DF5F4D00BAEC71 /* SelectMonitorPresentationController.swift */; };
 		A363D7E521DF5F9900BAEC71 /* SelectMonitorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A363D7E421DF5F9900BAEC71 /* SelectMonitorViewController.swift */; };
 		A363D7E721E0E58500BAEC71 /* WisdomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A363D7E621E0E58500BAEC71 /* WisdomTableViewCell.swift */; };
+		A3949A832234AC0000AC5900 /* BedrockNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3949A822234AC0000AC5900 /* BedrockNavigationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 		A363D7E221DF5F4D00BAEC71 /* SelectMonitorPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMonitorPresentationController.swift; sourceTree = "<group>"; };
 		A363D7E421DF5F9900BAEC71 /* SelectMonitorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMonitorViewController.swift; sourceTree = "<group>"; };
 		A363D7E621E0E58500BAEC71 /* WisdomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WisdomTableViewCell.swift; sourceTree = "<group>"; };
+		A3949A822234AC0000AC5900 /* BedrockNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BedrockNavigationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +130,7 @@
 		A341E4AA21B7F51300859F8F /* WisdomTimerBeta */ = {
 			isa = PBXGroup;
 			children = (
+				A3949A822234AC0000AC5900 /* BedrockNavigationController.swift */,
 				A341E4AB21B7F51300859F8F /* AppDelegate.swift */,
 				A341E4AD21B7F51300859F8F /* MenuViewController.swift */,
 				A341E4DD21BAB70B00859F8F /* TimerViewController.swift */,
@@ -312,6 +315,7 @@
 				A363D7D721D465F400BAEC71 /* TimerViewProtocols.swift in Sources */,
 				A3014BBA21EB1F7E00E668C6 /* TitleMonitorViewController.swift in Sources */,
 				A341E4AC21B7F51300859F8F /* AppDelegate.swift in Sources */,
+				A3949A832234AC0000AC5900 /* BedrockNavigationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -51,19 +51,34 @@ class SelectMonitorPresentationController: UIPresentationController {
     }
     
     // 子のコンテナのサイズを返す
-    // margin: どのくらい余白を作るか
+    // margin: どのくらい余白を作るか（上下左右合わせて）
     
     let appOrientation: UIInterfaceOrientation = UIApplication.shared.statusBarOrientation
-    var margin = (x: CGFloat(40), y: CGFloat(220.0))
+    var wholeViewSize: CGSize!
+    var margin: (x: CGFloat, y: CGFloat)!
     
     func sizeForChildContainer(container: UIContentContainer, withParentContainerSize parentSize: CGSize) -> CGSize {
-        
-        if appOrientation == .landscapeLeft || appOrientation == .landscapeRight {
-            margin = (x: CGFloat(250), y: CGFloat(40))
+        wholeViewSize = parentSize
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            if appOrientation == .landscapeLeft || appOrientation == .landscapeRight {
+                // iPad横向き
+                margin = (x: CGFloat(parentSize.height * 1/3), y: CGFloat(parentSize.height * 1/3))
+                return CGSize(width: parentSize.height * 2/3 , height: parentSize.height * 2/3 )
+            } else {
+                // iPad縦向き
+                margin = (x: CGFloat(parentSize.width * 1/3), y: CGFloat(parentSize.width * 1/3))
+                return CGSize(width: parentSize.width * 2/3 , height: parentSize.width * 2/3 )
+            }
+        } else {
+            if appOrientation == .landscapeLeft || appOrientation == .landscapeRight {
+                // iPhone横向き
+                margin = (x: CGFloat(250), y: CGFloat(40))
+            } else {
+                // iPhone縦向き
+                margin = (x: CGFloat(40), y: CGFloat(220.0))
+            }
+            return CGSize(width: parentSize.width - margin.x, height: parentSize.height - margin.y)
         }
-        
-        // iPhoneのモーダルビュー
-        return CGSize(width: parentSize.width - margin.x, height: parentSize.height - margin.y)
     }
     
     // 呼び出し先の View Controller の Frame を返す
@@ -75,8 +90,20 @@ class SelectMonitorPresentationController: UIPresentationController {
         presentedViewFrame.size = childContentSize
         
         // iPhoneのモーダルビュー（図形の左上）
-        presentedViewFrame.origin.x = margin.x / 2
-        presentedViewFrame.origin.y = margin.y / 2
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            if appOrientation == .landscapeLeft || appOrientation == .landscapeRight {
+                // iPad横向き
+                presentedViewFrame.origin.x = wholeViewSize.width/2 - childContentSize.width/2
+                presentedViewFrame.origin.y = margin.y / 2
+            } else {
+                // iPad縦向き
+                presentedViewFrame.origin.x = margin.x / 2
+                presentedViewFrame.origin.y = wholeViewSize.height/2 - childContentSize.height/2
+            }
+        } else {
+            presentedViewFrame.origin.x = margin.x / 2
+            presentedViewFrame.origin.y = margin.y / 2
+        }
         
         return presentedViewFrame
         

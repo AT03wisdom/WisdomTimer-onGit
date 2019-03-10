@@ -13,21 +13,37 @@
         <!--Timer List-->
         <scene sceneID="lUZ-bM-nGS">
             <objects>
-                <viewController id="sGi-P9-RpQ" customClass="MenuViewController" customModule="WisdomTimerBeta" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="sGi-P9-RpQ" customClass="MenuViewController" customModule="WisdomTimer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1Ed-tM-0qm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="54" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="l0v-Va-h90">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="l0v-Va-h90">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="wTimer" rowHeight="60" id="nYz-iJ-37N">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="60"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="wTimer" textLabel="ldy-Ck-Mf9" detailTextLabel="XpG-xs-66k" rowHeight="75" style="IBUITableViewCellStyleSubtitle" id="nYz-iJ-37N">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nYz-iJ-37N" id="sOy-Hf-Sfh">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="59.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ldy-Ck-Mf9">
+                                                    <rect key="frame" x="20" y="14.5" width="39.5" height="25.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XpG-xs-66k">
+                                                    <rect key="frame" x="20" y="43.5" width="44" height="14.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -61,7 +77,7 @@
         <!--TitleName-->
         <scene sceneID="fQp-KB-v6J">
             <objects>
-                <viewController id="Azf-lb-iDM" customClass="TimerViewController" customModule="WisdomTimerBeta" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Azf-lb-iDM" customClass="TimerViewController" customModule="WisdomTimer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bdT-8j-bHh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -73,10 +89,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sSi-yI-bQe">
-                                <rect key="frame" x="125.5" y="638" width="163" height="63"/>
+                                <rect key="frame" x="125.5" y="608.5" width="163" height="81"/>
                                 <color key="backgroundColor" red="0.89493445303234354" green="0.89493445303234354" blue="0.89493445303234354" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="163" id="imt-Xb-OZi"/>
+                                    <constraint firstAttribute="width" constant="163" id="HN9-gq-rp6"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <state key="normal" title="Pause">
@@ -87,7 +103,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tij-bA-hz4">
-                                <rect key="frame" x="125.5" y="729.5" width="163" height="62.5"/>
+                                <rect key="frame" x="125.5" y="711.5" width="163" height="80.5"/>
                                 <color key="backgroundColor" red="0.84678378807106602" green="0.84678378807106602" blue="0.84678378807106602" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="163" id="zjo-7n-SVi"/>
@@ -103,13 +119,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="tij-bA-hz4" firstAttribute="top" secondItem="sSi-yI-bQe" secondAttribute="bottom" constant="28.5" id="0pb-Am-nNX"/>
+                            <constraint firstItem="tij-bA-hz4" firstAttribute="top" secondItem="sSi-yI-bQe" secondAttribute="bottom" constant="22" id="0pb-Am-nNX"/>
                             <constraint firstItem="LNY-BE-7TQ" firstAttribute="trailing" secondItem="CjQ-a2-3GB" secondAttribute="trailing" constant="47" id="6MM-Rk-OFo"/>
                             <constraint firstItem="CjQ-a2-3GB" firstAttribute="leading" secondItem="LNY-BE-7TQ" secondAttribute="leading" constant="47" id="BZZ-ct-TUZ"/>
                             <constraint firstItem="tij-bA-hz4" firstAttribute="centerX" secondItem="bdT-8j-bHh" secondAttribute="centerX" id="Vda-Gd-rMu"/>
-                            <constraint firstItem="sSi-yI-bQe" firstAttribute="height" secondItem="bdT-8j-bHh" secondAttribute="height" multiplier="0.07" id="ijE-vJ-hPR"/>
+                            <constraint firstItem="sSi-yI-bQe" firstAttribute="height" secondItem="bdT-8j-bHh" secondAttribute="height" multiplier="0.09" id="ijE-vJ-hPR"/>
                             <constraint firstItem="sSi-yI-bQe" firstAttribute="centerX" secondItem="bdT-8j-bHh" secondAttribute="centerX" id="krW-qy-xbJ"/>
-                            <constraint firstItem="tij-bA-hz4" firstAttribute="height" secondItem="bdT-8j-bHh" secondAttribute="height" multiplier="0.07" id="pMM-pX-QZE"/>
+                            <constraint firstItem="tij-bA-hz4" firstAttribute="height" secondItem="bdT-8j-bHh" secondAttribute="height" multiplier="0.09" id="pMM-pX-QZE"/>
                             <constraint firstItem="CjQ-a2-3GB" firstAttribute="top" secondItem="LNY-BE-7TQ" secondAttribute="top" constant="30" id="peV-tI-V79"/>
                             <constraint firstItem="LNY-BE-7TQ" firstAttribute="bottom" secondItem="tij-bA-hz4" secondAttribute="bottom" constant="70" id="ted-2t-xgg"/>
                         </constraints>
@@ -130,13 +146,13 @@
         <!--Set Title-->
         <scene sceneID="g7b-pm-dc8">
             <objects>
-                <tableViewController storyboardIdentifier="setTitle" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9JZ-3R-b4W" customClass="TitleMonitorViewController" customModule="WisdomTimerBeta" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="setTitle" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9JZ-3R-b4W" customClass="TitleMonitorViewController" customModule="WisdomTimer" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="yUY-6o-Xfl">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="titleName" rowHeight="50" id="Y3z-hp-FvH" customClass="TextWriterCell" customModule="WisdomTimerBeta" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="titleName" rowHeight="50" id="Y3z-hp-FvH" customClass="TextWriterCell" customModule="WisdomTimer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="414" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Y3z-hp-FvH" id="2nk-gB-O0X">
@@ -173,12 +189,12 @@
             </objects>
             <point key="canvasLocation" x="3402.898550724638" y="1312.5"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Bedrock Navigation Controller-->
         <scene sceneID="wz4-6S-Gpc">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SU4-1A-HoF" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SU4-1A-HoF" customClass="BedrockNavigationController" customModule="WisdomTimer" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9WA-Er-oDq">
+                    <navigationBar key="navigationBar" alpha="0.0" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9WA-Er-oDq">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -210,13 +226,13 @@
         <!--New Timer-->
         <scene sceneID="28W-8Z-gLP">
             <objects>
-                <tableViewController id="a2O-zr-cLU" customClass="SelectMonitorViewController" customModule="WisdomTimerBeta" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="a2O-zr-cLU" customClass="SelectMonitorViewController" customModule="WisdomTimer" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="xpi-ND-Vzg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="WisdomTableViewCell" rowHeight="244" id="JR0-M5-4jp" customClass="WisdomTableViewCell" customModule="WisdomTimerBeta" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="WisdomTableViewCell" rowHeight="244" id="JR0-M5-4jp" customClass="WisdomTableViewCell" customModule="WisdomTimer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="414" height="244"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JR0-M5-4jp" id="v0g-Bj-oIr">

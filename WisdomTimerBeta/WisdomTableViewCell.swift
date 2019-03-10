@@ -13,9 +13,9 @@ class WisdomTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
     // 時・分・秒のデータ
     let timeDatas = [[Int](0...23), [Int](0...59), [Int](0...59)]
     
-    var limitedSecond: Int = 0
-    var limitedMinute: Int = 0
-    var limitedHour: Int = 0
+    var pickerSecond: Int = 0
+    var pickerMinute: Int = 0
+    var pickerHour: Int = 0
     
     var hourLabel: UILabel!
     var minuteLabel: UILabel!
@@ -38,23 +38,31 @@ class WisdomTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
         timePicker.layoutIfNeeded()
         
         // 選択部分のX座標
-        if appOrientation == .landscapeLeft || appOrientation == .landscapeRight {
-            monitorWidth = UIScreen.main.bounds.width - 250
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            if appOrientation == .landscapeLeft || appOrientation == .landscapeRight {
+                // iPad横向き
+                monitorWidth = UIScreen.main.bounds.height * 2/3
+            } else {
+                // iPad縦向き
+                monitorWidth = UIScreen.main.bounds.width * 2/3
+            }
         } else {
-            monitorWidth = UIScreen.main.bounds.width - 40
+            if appOrientation == .landscapeLeft || appOrientation == .landscapeRight {
+                monitorWidth = UIScreen.main.bounds.width - 250
+            } else {
+                monitorWidth = UIScreen.main.bounds.width - 40
+            }
         }
         
         // デリゲートを使えるようにするおきまりのあれ
         
         timePicker.dataSource = self
         timePicker.delegate = self
-        timePicker.backgroundColor = UIColor(red: 0, green: 0, blue: 1, alpha: 0.3)
         
         // 時データ
         hourLabel = UILabel()
         hourLabel.text = NSLocalizedString("hour", comment: "")
         hourLabel.sizeToFit()
-        hourLabel.backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.3)
         hourLabel.frame = CGRect(x: monitorWidth/4 - hourLabel.bounds.width/2, y: timePicker.frame.height/2 - hourLabel.bounds.height/2, width: hourLabel.bounds.width, height: hourLabel.bounds.height)
         
         timePicker.addSubview(hourLabel)
@@ -63,7 +71,6 @@ class WisdomTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
         minuteLabel = UILabel()
         minuteLabel.text = NSLocalizedString("min", comment: "")
         minuteLabel.sizeToFit()
-        minuteLabel.backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.3)
         minuteLabel.frame = CGRect(x: monitorWidth/4*2 - minuteLabel.bounds.width/2, y: timePicker.frame.height/2 - minuteLabel.bounds.height/2, width: minuteLabel.bounds.width, height: minuteLabel.bounds.height)
         
         timePicker.addSubview(minuteLabel)
@@ -72,7 +79,6 @@ class WisdomTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
         secondLabel = UILabel()
         secondLabel.text = NSLocalizedString("sec", comment: "")
         secondLabel.sizeToFit()
-        secondLabel.backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.3)
         secondLabel.frame = CGRect(x: monitorWidth/4*3 - secondLabel.bounds.width/2, y: timePicker.frame.height/2 - secondLabel.bounds.height/2, width: secondLabel.bounds.width, height: secondLabel.bounds.height)
         
         timePicker.addSubview(secondLabel)
@@ -86,9 +92,9 @@ class WisdomTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
     }
     
     func makeTimer() -> TimerFile {
-        let timer: TimerFile = TimerFile(second: limitedSecond,
-                                         minute: limitedMinute,
-                                         hour: limitedHour)
+        let timer: TimerFile = TimerFile(second: pickerSecond,
+                                         minute: pickerMinute,
+                                         hour: pickerHour)
         return timer
     }
     
@@ -113,7 +119,6 @@ class WisdomTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
         // pickerViewに値を挿入
         let pickerLabel = UILabel()
         pickerLabel.textAlignment = NSTextAlignment.left
-        pickerLabel.backgroundColor = UIColor(red: 0, green: 1, blue: 0, alpha: 0.3)
         pickerLabel.text = String(timeDatas[component][row])
         
         return pickerLabel
@@ -123,11 +128,11 @@ class WisdomTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
         
         switch component {
         case 0:
-            limitedHour = timeDatas[0][row]
+            pickerHour = timeDatas[0][row]
         case 1:
-            limitedMinute = timeDatas[1][row]
+            pickerMinute = timeDatas[1][row]
         case 2:
-            limitedSecond = timeDatas[2][row]
+            pickerSecond = timeDatas[2][row]
         default:
             assert(false, "Because of confirming unknown conponent value \(component)")
         }

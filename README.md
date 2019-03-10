@@ -1,5 +1,5 @@
-# WisdomTimerBeta (日本語)
-こんにちは。WisdomTimerのBeta版ページへようこそ。
+# WisdomTimer (onGit) (日本語)
+こんにちは。WisdomTimerのGit版ページへようこそ。
 
 ## 概要
 このアプリはタイマーを複数作成することができるアプリです。
@@ -106,8 +106,8 @@ Life is Tech!
 
 
 
-# WisdomTimerBeta (English)
-Hello. Welcome to the page of WisdomTimer Beta Edition.
+# WisdomTimer (onGit) (English)
+Hello. Welcome to the page of WisdomTimer Git Edition.
 
 ## Overview
 This application is an application that can create multiple timers.

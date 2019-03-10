@@ -10,6 +10,7 @@ import UIKit
 
 class TimerViewController: UIViewController, TimerViewProtocols {
     
+    
     var timerFile: TimerFile!
     
     //    let device: UIDevice = UIDevice.current
@@ -77,6 +78,7 @@ class TimerViewController: UIViewController, TimerViewProtocols {
         timerFile.doneAction()
         
         reflectButtonStyle(tag: "Done")
+        timerFile.isSoonAsFromBackground = false
     }
     
     @IBAction func onRestartButton() {
