@@ -1,18 +1,18 @@
-/* 
-  Localizable.strings
-  WisdomTimerBeta
-
-  Created by 田中惇貴 on 2019/01/26.
-  Copyright © 2019 田中惇貴. All rights reserved.
-*/
+/*
+ Localizable.strings
+ WisdomTimer onGit
+ 
+ Created by 田中惇貴 on 2019/01/26.
+ Copyright © 2019 田中惇貴. All rights reserved.
+ */
 
 "Pause" = "一時停止";
 
 "Start" =  "スタート";
 
-"Restart" =  "再開";
+"Resume" =  "再開";
 
-"Done" =  "終了";
+"Clear" =  "終了";
 
 "Failed To Make Timer" =  "タイマーは作れません";
 

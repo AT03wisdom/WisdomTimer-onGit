@@ -1,6 +1,6 @@
 //
 //  TimerViewController.swift
-//  WisdomTimerBeta
+//  WisdomTimer onGit
 //
 //  Created by 田中惇貴 on 2018/12/07.
 //  Copyright © 2018 田中惇貴. All rights reserved.
@@ -19,8 +19,8 @@ class TimerViewController: UIViewController, TimerViewProtocols {
     @IBOutlet var titleLabel: UINavigationItem!
     @IBOutlet var timeLabel: UILabel!
     
-    @IBOutlet var doneButton: UIButton!
-    @IBOutlet var restartButton: UIButton!
+    @IBOutlet var upperButton: UIButton!
+    @IBOutlet var clearButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,32 +31,21 @@ class TimerViewController: UIViewController, TimerViewProtocols {
         
         timerFile.delegate = self
         
-        //        doneButton.placeButton(device: device, screen: screen, buttonType: 2)
-        //        restartButton.placeButton(device: device, screen: screen, buttonType: 1)
+        //        clearButton.placeButton(device: device, screen: screen, buttonType: 2)
+        //        upperButton.placeButton(device: device, screen: screen, buttonType: 1)
         //
-        //        print(doneButton.frame.origin.x)
-        //        print((doneButton.frame.width, doneButton.frame.height))
+        //        print(clearButton.frame.origin.x)
+        //        print((clearButton.frame.width, clearButton.frame.height))
         
         if timerFile.timer.isValid {
             // タイマーが動いている時
-            restartButton.setTitle(NSLocalizedString("Pause", comment: ""), for: .normal)
-            restartButton.setTitleColorToLightGreen()
+            upperButton.setTitle(NSLocalizedString("Pause", comment: ""), for: .normal)
+            upperButton.setTitleColorToLightGreen()
         } else {
             // タイマーが止まっている時
-            restartButton.setTitle(NSLocalizedString("Start", comment: ""), for: .normal)
-            restartButton.setTitleColorToMagenta()
+            upperButton.setTitle(NSLocalizedString("Start", comment: ""), for: .normal)
+            upperButton.setTitleColorToMagenta()
         }
-        
-        restartButton.layer.cornerRadius = 10
-        restartButton.titleLabel?.font = UIFont.systemFont(ofSize: 0.045 * self.view.bounds.height)
-        restartButton.titleLabel?.adjustsFontSizeToFitWidth = true
-        restartButton.titleLabel?.minimumScaleFactor = 0.3
-        
-        drawRestartButton()
-        
-        doneButton.layer.cornerRadius = 10
-        doneButton.titleLabel?.font = UIFont.systemFont(ofSize: 0.045 * self.view.bounds.height)
-        doneButton.setTitleColor(UIColor(red: 0.1, green: 0.2, blue: 0.9, alpha: 1.0), for: .normal)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(changeRotateAction),
@@ -65,25 +54,40 @@ class TimerViewController: UIViewController, TimerViewProtocols {
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        changeRotateAction()
+    override func viewWillAppear(_ animated: Bool) {
+        upperButton.layer.cornerRadius = 10
+        upperButton.titleLabel?.font = UIFont.systemFont(ofSize: 0.045 * self.view.bounds.height)
+        upperButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        upperButton.titleLabel?.minimumScaleFactor = 0.3
+        
+        drawUpperButton()
+        
+        clearButton.layer.cornerRadius = 10
+        clearButton.titleLabel?.font = UIFont.systemFont(ofSize: 0.045 * self.view.bounds.height)
+        clearButton.setTitleColor(UIColor(red: 0.1, green: 0.2, blue: 0.9, alpha: 1.0), for: .normal)
+        
+        //        悲しいことに、フォントとかボタンサイズに関してはAutorayoutが優先される関係で全く働いていない！
+        //        if UIScreen.main.bounds.width >= 800 && UIScreen.main.bounds.height >= 800 {
+        //            upperButton.frame.size = CGSize(width: 250, height: upperButton.frame.height)
+        //            clearButton.frame.size = CGSize(width: 250, height: upperButton.frame.height)
+        //        }
     }
     
     @objc func changeRotateAction() {
-        restartButton.titleLabel?.font = UIFont.systemFont(ofSize: 0.045 * self.view.bounds.height)
-        doneButton.titleLabel?.font = UIFont.systemFont(ofSize: 0.045 * self.view.bounds.height)
+        upperButton.titleLabel?.font = UIFont.systemFont(ofSize: 0.045 * self.view.bounds.height)
+        clearButton.titleLabel?.font = UIFont.systemFont(ofSize: 0.045 * self.view.bounds.height)
     }
     
-    @IBAction func onDoneButton() {
-        timerFile.doneAction()
+    @IBAction func onClearButton() {
+        timerFile.clearAction()
         
-        reflectButtonStyle(tag: "Done")
+        reflectButtonStyle(tag: "Clear")
         timerFile.isSoonAsFromBackground = false
     }
     
-    @IBAction func onRestartButton() {
+    @IBAction func onUpperButton() {
         
-        if restartButton.titleLabel?.text == NSLocalizedString("Pause", comment: "") {
+        if upperButton.titleLabel?.text == NSLocalizedString("Pause", comment: "") {
             timerFile.pauseAction()
             reflectButtonStyle(tag: "Pause")
         } else {
@@ -92,17 +96,17 @@ class TimerViewController: UIViewController, TimerViewProtocols {
                 timerFile.startAction()
                 reflectButtonStyle(tag: "Start")
             } else {
-                timerFile.restartAction()
-                reflectButtonStyle(tag: "Restart")
+                timerFile.resumeAction()
+                reflectButtonStyle(tag: "Resume")
             }
         }
         
     }
     
-    func drawRestartButton() {
+    func drawUpperButton() {
         if UIDevice.current.userInterfaceIdiom == .pad {
-            let paddingRect = restartButton.frame.inset(by: UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4))
-            restartButton.draw(paddingRect)
+            let paddingRect = upperButton.frame.inset(by: UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4))
+            upperButton.draw(paddingRect)
         }
     }
     
@@ -117,26 +121,37 @@ class TimerViewController: UIViewController, TimerViewProtocols {
         case "Start":
             // Start ボタンが押された時
             fallthrough
-        case "Restart":
-            // Restart ボタンが押された時
-            restartButton.setTitle(NSLocalizedString("Pause", comment: ""), for: .normal)
-            restartButton.setTitleColorToLightGreen()
+        case "Resume":
+            // Resume ボタンが押された時
+            upperButton.setTitle(NSLocalizedString("Pause", comment: ""), for: .normal)
+            upperButton.setTitleColorToLightGreen()
             
         case "Pause":
             // Pause ボタンが押された時
-            restartButton.setTitle(NSLocalizedString("Restart", comment: ""), for: .normal)
-            restartButton.setTitleColorToMagenta()
             
-        case "Done":
-            // Done ボタンが押された時
-            restartButton.setTitle(NSLocalizedString("Start", comment: ""), for: .normal)
-            restartButton.setTitleColorToMagenta()
+            // iPad・日本語の時は位置調整のために空白を設け「　再開　」にする
+            var resumeString = NSLocalizedString("Resume", comment: "")
+            
+            let language_region: String = NSLocale.preferredLanguages.first!
+            let lang: String = language_region.components(separatedBy: "-").first!
+            
+            if UIDevice.current.userInterfaceIdiom == .pad && lang == "ja" {
+                resumeString = "　" + resumeString + "　"
+            }
+            
+            upperButton.setTitle(resumeString, for: .normal)
+            upperButton.setTitleColorToMagenta()
+            
+        case "Clear":
+            // Clear ボタンが押された時
+            upperButton.setTitle(NSLocalizedString("Start", comment: ""), for: .normal)
+            upperButton.setTitleColorToMagenta()
             
         default:
             print("\(tag)が引数に入力されました。関数は実行されません。")
         }
         
-        drawRestartButton()
+        drawUpperButton()
     }
     
     // Delegate ここまで

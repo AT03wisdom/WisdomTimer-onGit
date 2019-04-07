@@ -1,6 +1,6 @@
 //
 //  TextWriterCell.swift
-//  WisdomTimerBeta
+//  WisdomTimer onGit
 //
 //  Created by 田中惇貴 on 2019/01/13.
 //  Copyright © 2019 田中惇貴. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  TimerFile.swift
-//  WisdomTimerBeta
+//  WisdomTimer onGit
 //
 //  Created by 田中惇貴 on 2018/12/05.
 //  Copyright © 2018 田中惇貴. All rights reserved.
@@ -168,8 +168,8 @@ class TimerFile {
             
             DispatchQueue.main.asyncAfter( deadline: .now() + 0.1 ) {
                 // 事後処理
-                self.doneAction()
-                self.delegate?.reflectButtonStyle(tag: "Done")
+                self.clearAction()
+                self.delegate?.reflectButtonStyle(tag: "Clear")
                 
                 if self.isVibrate {
                     AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
@@ -433,8 +433,8 @@ class TimerFile {
         self.isSoonAsFromBackground = false
     }
     
-    func doneAction() {
-        // Doneボタンが押された時
+    func clearAction() {
+        // Clearボタンが押された時
         
         // タイマーの状況を全部リセットする
         timer.invalidate()
@@ -463,8 +463,8 @@ class TimerFile {
         self.isSoonAsFromBackground = false
     }
     
-    func restartAction() {
-        // restartボタンが押された時 (Restart)
+    func resumeAction() {
+        // resumeボタンが押された時 (Restart)
         
         // 時間・表示をpause時に戻す
         self.currentWholeSecond = self.pauseWholeSecond

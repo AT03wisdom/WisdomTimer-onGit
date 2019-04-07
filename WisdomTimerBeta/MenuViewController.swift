@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  WisdomTimerBeta
+//  WisdomTimer onGit
 //
 //  Created by 田中惇貴 on 2018/12/05.
 //  Copyright © 2018 田中惇貴. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  SelectMonitorViewController.swift
-//  WisdomTimerBeta
+//  WisdomTimer onGit
 //
 //  Created by 田中惇貴 on 2019/01/04.
 //  Copyright © 2019 田中惇貴. All rights reserved.
@@ -68,7 +68,7 @@ class SelectMonitorViewController: UITableViewController {
     }
     
     @IBAction func doneButtonDidTouch(sender: AnyObject) {
-        // Doneが押されたら
+        // モニターのDoneが押されたら
         // 新しいタイマーを作る
         let newTimer = pickerCell.makeTimer()
         
